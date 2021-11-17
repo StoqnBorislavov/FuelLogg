@@ -8,25 +8,25 @@
 <header th:replace="fragments/navigation::nav"></header>
 <main>
     <div class="group">
-        <h3 class="home text-center container-fluid" th:text="|My vehicles: ${numberOfCopies}|" >My vechicles: 2 </h3>
+        <h3 class="home text-center container-fluid" th:text="|My vehicles: ${vehiclesCount}|" >My vechicles: 2 </h3>
         <div class="col text-center">
             <a type="button" class="btn btn-outline-secondary container-justify" th:href="@{/vehicle/add}">Add new vehicle</a>
         </div>
     </div>
     <div class="row margin-left: 10px">
-        <div th:each="a : ${albums}" th:object="${a}" class="col-lg-3 col-md-4 col-sm-6 col-12">
+        <div th:each="m : ${myVehicles}" th:object="${m}" class="col-lg-3 col-md-4 col-sm-6 col-12">
             <div class="vechicle card sm-3 md-3 mb-4 box-shadow">
-                <img th:src="|/img/*{artist.name.name().toLowerCase()}.jpg|" src="IMG_1433.jpg" class="card-img-top"
+                <img th:src="*{url}" src="IMG_1433.jpg" class="card-img-top"
                      alt="Thumbnail [100%x225]" data-holder-rendered="true"
                      style="height: 240px; width: 100%; display: block;">
                 <div class="card-body">
                     <div class="text-center">
-                        <p class="card-text border-bottom " th:text="|Brand name and model: *{name}|">BMW 330 ci</p>
-                        <p class="card-text border-bottom " th:text="|Kilometers: *{artist.name.name()}|">Kilometers
+                        <p class="card-text border-bottom " th:text="|Brand name and model: *{brand} *{name}|">BMW 330 ci</p>
+                        <p class="card-text border-bottom " th:text="|Kilometers: *{odometer}|">Kilometers
                         </p>
-                        <p class="card-text border-bottom " th:text="|Fuel consumpt: *{genre.name()}|">Fuel consumpt
+                        <p class="card-text border-bottom " th:text="|Fuel consumpt: *{fuelConsumption}|">Fuel consumpt
                         </p>
-                        <p class="card-text border-bottom " th:text="|Average consumption: *{price}|">Average
+                        <p class="card-text border-bottom " th:text="|Average consumption: *{averageConsumption}|">Average
                             consumption</p>
                     </div>
                     <div class="d-flex justify-content-center align-items-center">

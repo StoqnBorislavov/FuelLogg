@@ -29,14 +29,16 @@ public class BrandServiceImpl implements BrandService {
 
     @Override
     public void initializeBrands() {
-        Brand bmw = new Brand();
-        bmw.setName("BMW");
-        Brand mercedes = new Brand();
-        mercedes.setName("Mercedes");
-        Brand audi = new Brand();
-        audi.setName("Audi");
+        if(brandRepository.count() == 0) {
+            Brand bmw = new Brand();
+            bmw.setName("BMW");
+            Brand mercedes = new Brand();
+            mercedes.setName("Mercedes");
+            Brand audi = new Brand();
+            audi.setName("Audi");
 
-        this.brandRepository.saveAll(List.of(bmw, mercedes, audi));
+            this.brandRepository.saveAll(List.of(bmw, mercedes, audi));
+        }
     }
 
     @Override

@@ -1,0 +1,78 @@
+package fuellogg.model.view;
+
+public class VehicleViewModel {
+
+    private Long id;
+    private BrandViewModel brand;
+    private String name;
+    private Integer odometer;
+    private Double fuelConsumption;
+    private Double averageConsumption;
+    private String url;
+
+    public VehicleViewModel() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public VehicleViewModel setId(Long id) {
+        this.id = id;
+        return this;
+    }
+
+    public BrandViewModel getBrand() {
+        return brand;
+    }
+
+    public VehicleViewModel setBrand(BrandViewModel brand) {
+        this.brand = brand;
+        return this;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public VehicleViewModel setName(String name) {
+        this.name = name;
+        return this;
+    }
+
+    public Integer getOdometer() {
+        return odometer;
+    }
+
+    public VehicleViewModel setOdometer(Integer odometer) {
+        this.odometer = odometer;
+        return this;
+    }
+
+    public Double getFuelConsumption() {
+        return fuelConsumption;
+    }
+
+    public VehicleViewModel setFuelConsumption(Double fuelConsumption) {
+        this.fuelConsumption = fuelConsumption;
+        return this;
+    }
+
+    public Double getAverageConsumption() {
+        return averageConsumption;
+    }
+
+    public VehicleViewModel setAverageConsumption(Double averageConsumption) {
+        this.averageConsumption = averageConsumption;
+        return this;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public VehicleViewModel setUrl(String url) {
+        this.url = url;
+        return this;
+    }
+}

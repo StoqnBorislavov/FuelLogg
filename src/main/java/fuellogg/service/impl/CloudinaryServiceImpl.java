@@ -3,12 +3,14 @@ package fuellogg.service.impl;
 import com.cloudinary.Cloudinary;
 import fuellogg.service.CloudinaryImage;
 import fuellogg.service.CloudinaryService;
+import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.Map;
 
+@Service
 public class CloudinaryServiceImpl implements CloudinaryService {
     private static final String TEMP_FILE = "temp-file";
     private static final String URL = "url";
