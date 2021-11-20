@@ -11,4 +11,6 @@ public interface VehicleService {
     void addVehicle(VehicleAddBindingModel vehicleAddBindingModel, String ownerId) throws IOException;
 
     List<VehicleViewModel> findMyVehicles(String userIdentifier);
+
+    Integer lastOdometer(Long id);
 }

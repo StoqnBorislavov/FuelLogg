@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="fragments/head::head"></head>
+
+<body>
+<header th:replace="fragments/navigation::nav"></header>
+    <main class="content-wrap">
+        <div class="container">
+            <h2 class="text-center text-white">Add fuel</h2>
+            <form th:method="post" th:action="@{/statistics/{id}/addFuel(id = *{id})}" th:object="${addFuelBindingModel}" class="main-form mx-auto col-md-6 d-flex flex-column justify-content-center">
+                <div class="form-group">
+                    <label for="odometer" class="text-white font-weight-bold">Odometer</label>
+                    <input th:field="*{odometer}"
+                           th:errorclass="is-invalid" type="number" step="0.01" class="form-control" id="odometer" name="odometer" required
+                        placeholder="Last odometer">
+                    <small class="invalid-feedback text-danger">Odometer value must be positive number.</small>
+                </div>
+                <div class="form-group">
+                    <label for="tripOdometer" class="text-white font-weight-bold">Trip odometer</label>
+                    <input  th:field="*{tripOdometer}"
+                            th:errorclass="is-invalid"  type="number" step="0.01" class="form-control" id="tripOdometer" name="tripOdometer" placeholder="Trip odometer" required>
+                    <small class="invalid-feedback text-danger">Trip odometer value must be positive number.</small>
+                </div>
+                <div class="form-group">
+                    <label for="quantity" class="text-white font-weight-bold">Quantity</label>
+                    <input th:field="*{quantity}"
+                           th:errorclass="is-invalid"  type="number" class="form-control" id="quantity" name="quantity" required
+                         placeholder="Quantity">
+                    <small class="invalid-feedback text-danger">Quantity must be positive number.</small>
+                </div>
+                <div class="form-group">
+                    <label for="fuelSort"  class="text-white font-weight-bold">Fuel sort</label>
+                    <select th:field="*{fuelSort}"
+                            th:errorclass="is-invalid"
+                            id="fuelSort" class="custom-select">
+                        <option value="" selected>Select fuel</option>
+                        <option th:each="f :${T(fuellogg.model.enums.EngineEnum).values()}"  th:value="${f}" text="Fuel"></option>
+                    </select>
+                    <small class="invalid-feedback text-danger">Must select fuel sort!</small>
+                </div>
+                <div class="form-group">
+                    <label for="price" class="text-white font-weight-bold">Price</label>
+                    <input th:field="*{price}" th:errorclass="is-invalid" type="number" class="form-control" id="fuelSort" name="fuelSort" required
+                        minlength="5" maxlength="20" placeholder="Price">
+                    <small class="invalid-feedback text-danger">Passwords should match!</small>
+                </div>
+                <div class="form-group">
+                    <label for="fuelingNotes" class="text-white font-weight-bold">Fueling notes</label>
+                    <textarea
+                    th:field="*{fuelingNotes}"
+                    th:errorclass="is-invalid"
+                    required minlength="5"
+                    id="fuelingNotes"
+                    class="form-control"
+                    aria-describedby="inputDescriptionError"></textarea>
+                
+                </div>
+                <div class="row">
+                    <div class="col col-md-4">
+                        <div class="button-holder d-flex">
+                            <input type="submit" class="btn btn-secondary btn-lg" value="Add fueling">
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </main>
+    <footer>
+        <div class="container-fluid text-center">
+            <div class="footer-background h6">
+                &copy; S.B.Stoyanov. All rights reserved.
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

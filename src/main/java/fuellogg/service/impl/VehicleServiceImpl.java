@@ -64,9 +64,19 @@ public class VehicleServiceImpl implements VehicleService {
         return entities.stream().map(this::customMap).collect(Collectors.toList());
     }
 
+    @Override
+    public Integer lastOdometer(Long id) {
+       return this.vehicleRepository.findById(id).map(Vehicle::getOdometer).orElseThrow(()-> new UnsupportedOperationException());
+    }
+
     private VehicleViewModel customMap(Vehicle vehicle){
-        return new VehicleViewModel().setUrl(vehicle.getPicture().getUrl())
-                .setBrand(modelMapper.map(vehicle.getBrand(), BrandViewModel.class).setName(vehicle.getName()));
+        return new VehicleViewModel()
+                .setId(vehicle.getId())
+                .setUrl(vehicle.getPicture().getUrl())
+                .setOdometer(vehicle.getOdometer())
+                //todo average fuel consumption
+                .setBrand(vehicle.getBrand().getName())
+                .setName(vehicle.getName());
     }
 
     private Picture createPicture(MultipartFile file) throws IOException {

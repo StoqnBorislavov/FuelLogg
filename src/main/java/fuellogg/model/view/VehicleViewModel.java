@@ -3,7 +3,7 @@ package fuellogg.model.view;
 public class VehicleViewModel {
 
     private Long id;
-    private BrandViewModel brand;
+    private String brand;
     private String name;
     private Integer odometer;
     private Double fuelConsumption;
@@ -22,11 +22,11 @@ public class VehicleViewModel {
         return this;
     }
 
-    public BrandViewModel getBrand() {
+    public String getBrand() {
         return brand;
     }
 
-    public VehicleViewModel setBrand(BrandViewModel brand) {
+    public VehicleViewModel setBrand(String brand) {
         this.brand = brand;
         return this;
     }
