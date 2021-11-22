@@ -1,7 +1,9 @@
 package fuellogg.web;
 
 import fuellogg.model.binding.VehicleAddBindingModel;
+import fuellogg.model.view.FuelStatisticViewModel;
 import fuellogg.service.BrandService;
+import fuellogg.service.StatisticsService;
 import fuellogg.service.VehicleService;
 import fuellogg.service.impl.MyUser;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,17 +19,20 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.io.IOException;
+import java.util.List;
 
 @Controller
 public class VehicleController {
 
     private final BrandService brandService;
     private final VehicleService vehicleService;
+    private final StatisticsService statisticsService;
 
     @Autowired
-    public VehicleController(BrandService brandService, VehicleService vehicleService) {
+    public VehicleController(BrandService brandService, VehicleService vehicleService, StatisticsService statisticsService) {
         this.brandService = brandService;
         this.vehicleService = vehicleService;
+        this.statisticsService = statisticsService;
     }
 
 
@@ -45,12 +50,20 @@ public class VehicleController {
             redirectAttributes.addFlashAttribute("vehicleAddBindingModel", vehicleAddBindingModel);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.vehicleAddBindingModel", result);
             redirectAttributes.addFlashAttribute("brandsModels", brandService.getAllBrands());
-            return "redirect:/vehicle/add";
+            return "redirect:/addVehicle";
         }
 
 
         this.vehicleService.addVehicle(vehicleAddBindingModel, user.getUserIdentifier());
         return "redirect:/home";
+    }
+
+    @GetMapping("/vehicle/{id}/fueling")
+    private String showFueling(@PathVariable Long id, Model model){
+        List<FuelStatisticViewModel> fuelStatistic = this.statisticsService.getAllStatisticsByVehicleId(id);
+        model.addAttribute("make", this.vehicleService.findVehicleById(id));
+        model.addAttribute("fuelings", fuelStatistic);
+        return "vehicleFueling";
     }
 
 

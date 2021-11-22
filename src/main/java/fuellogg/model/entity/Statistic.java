@@ -12,6 +12,8 @@ public class Statistic extends BaseEntity{
 
     private LocalDate date;
     private Integer odometer;
+    private Integer trip;
+    private BigDecimal fuelConsumption;
     private BigDecimal quantity;
     private BigDecimal price;
     private RouteEnum route;
@@ -20,6 +22,25 @@ public class Statistic extends BaseEntity{
 
     public Statistic() {
     }
+    @Column
+    public Integer getTrip() {
+        return trip;
+    }
+
+    public Statistic setTrip(Integer trip) {
+        this.trip = trip;
+        return this;
+    }
+    @Column
+    public BigDecimal getFuelConsumption() {
+        return fuelConsumption;
+    }
+
+    public Statistic setFuelConsumption(BigDecimal fuelConsumption) {
+        this.fuelConsumption = fuelConsumption;
+        return this;
+    }
+
     @Column(nullable = false)
     public LocalDate getDate() {
         return date;

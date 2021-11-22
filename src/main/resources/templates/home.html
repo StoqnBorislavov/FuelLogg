@@ -34,7 +34,7 @@
                             <a type="button" class="btn btn-sm btn-outline-secondary"
                                th:href="@{/statistics/{id}/details(id = ${m.id})}">Details</a>
                             <a type="button" class="btn btn-sm btn-outline-secondary"
-                               th:href="@{/statistics/{id}/addFuel(id = ${m.id})}">Add fueling</a>
+                               th:href="@{/statistics/addFuel/{id}(id=${m.id})}">Add fueling</a>
                             <a type="button" class="btn btn-sm btn-outline-secondary"
                                th:href="@{/statistics/{id}/addExpenses(id = ${m.id})}">Add expenses</a>
                         </div>

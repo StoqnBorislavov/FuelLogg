@@ -3,11 +3,11 @@ package fuellogg.service.impl;
 import fuellogg.model.binding.VehicleAddBindingModel;
 import fuellogg.model.entity.*;
 import fuellogg.model.service.VehicleAddServiceModel;
-import fuellogg.model.view.BrandViewModel;
 import fuellogg.model.view.VehicleViewModel;
 import fuellogg.repository.PictureRepository;
 import fuellogg.repository.VehicleRepository;
 import fuellogg.service.*;
+import javassist.tools.rmi.ObjectNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -68,6 +68,21 @@ public class VehicleServiceImpl implements VehicleService {
     public Integer lastOdometer(Long id) {
        return this.vehicleRepository.findById(id).map(Vehicle::getOdometer).orElseThrow(()-> new UnsupportedOperationException());
     }
+
+    @Override
+    public void updateVehicle(Long vehicleId, Integer odometer) throws ObjectNotFoundException {
+        Vehicle vehicle = this.vehicleRepository.findById(vehicleId).orElseThrow(() -> new ObjectNotFoundException("Vehicle with id " + vehicleId + " not found!"));
+        vehicle.setOdometer(odometer);
+        this.vehicleRepository.save(vehicle);
+    }
+
+    @Override
+    public String findVehicleById(Long id) {
+        //todo: exception handling
+        Vehicle vehicle = this.vehicleRepository.findById(id).orElse(null);
+        return vehicle.getBrand().getName() + " " + vehicle.getName();
+    }
+
 
     private VehicleViewModel customMap(Vehicle vehicle){
         return new VehicleViewModel()

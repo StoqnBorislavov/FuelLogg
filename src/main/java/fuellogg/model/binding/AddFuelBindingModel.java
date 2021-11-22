@@ -1,0 +1,117 @@
+package fuellogg.model.binding;
+
+import fuellogg.model.enums.RouteEnum;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
+import java.time.LocalDate;
+
+public class AddFuelBindingModel {
+
+//    private Long id;
+    private Long vehicleId;
+    private LocalDate date;
+    private Integer odometer;
+    private Integer tripOdometer;
+    private BigDecimal quantity;
+    private String fuelSort;
+    private RouteEnum route;
+    private BigDecimal price;
+    private String description;
+
+    public AddFuelBindingModel() {
+    }
+
+    @NotNull
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public AddFuelBindingModel setDate(LocalDate date) {
+        this.date = date;
+        return this;
+    }
+
+    public RouteEnum getRoute() {
+        return route;
+    }
+
+    public AddFuelBindingModel setRoute(RouteEnum route) {
+        this.route = route;
+        return this;
+    }
+
+    public Long getVehicleId() {
+        return vehicleId;
+    }
+
+    public AddFuelBindingModel setVehicleId(Long vehicleId) {
+        this.vehicleId = vehicleId;
+        return this;
+    }
+//
+//    public Long getId() {
+//        return id;
+//    }
+//
+//    public AddFuelBindingModel setId(Long id) {
+//        this.id = id;
+//        return this;
+//    }
+
+    public Integer getOdometer() {
+        return odometer;
+    }
+
+    public AddFuelBindingModel setOdometer(Integer odometer) {
+        this.odometer = odometer;
+        return this;
+    }
+
+    public Integer getTripOdometer() {
+        return tripOdometer;
+    }
+
+    public AddFuelBindingModel setTripOdometer(Integer tripOdometer) {
+        this.tripOdometer = tripOdometer;
+        return this;
+    }
+
+    public BigDecimal getQuantity() {
+        return quantity;
+    }
+
+    public AddFuelBindingModel setQuantity(BigDecimal quantity) {
+        this.quantity = quantity;
+        return this;
+    }
+
+    public String getFuelSort() {
+        return fuelSort;
+    }
+
+    public AddFuelBindingModel setFuelSort(String fuelSort) {
+        this.fuelSort = fuelSort;
+        return this;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public AddFuelBindingModel setPrice(BigDecimal price) {
+        this.price = price;
+        return this;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public AddFuelBindingModel setDescription(String description) {
+        this.description = description;
+        return this;
+    }
+}
