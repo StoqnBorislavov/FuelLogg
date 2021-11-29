@@ -1,5 +1,7 @@
 package fuellogg.model.view;
 
+import java.math.BigDecimal;
+
 public class VehicleViewModel {
 
     private Long id;
@@ -7,7 +9,7 @@ public class VehicleViewModel {
     private String name;
     private Integer odometer;
     private Double fuelConsumption;
-    private Double averageConsumption;
+    private BigDecimal averageConsumption;
     private String url;
 
     public VehicleViewModel() {
@@ -58,11 +60,11 @@ public class VehicleViewModel {
         return this;
     }
 
-    public Double getAverageConsumption() {
+    public BigDecimal getAverageConsumption() {
         return averageConsumption;
     }
 
-    public VehicleViewModel setAverageConsumption(Double averageConsumption) {
+    public VehicleViewModel setAverageConsumption(BigDecimal averageConsumption) {
         this.averageConsumption = averageConsumption;
         return this;
     }

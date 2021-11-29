@@ -15,4 +15,6 @@ public interface StatisticsRepository extends JpaRepository<Statistic, Long> {
     Optional<Statistic> findTopByVehicle_IdOrderByDateDesc(Long vehicleId);
 
     Optional<List<Statistic>> findAllByVehicle_IdOrderByDateDesc(Long vehicleId);
+
+    Optional<Statistic> findTopByVehicle_IdOrderByDateAsc(Long vehicleId);
 }

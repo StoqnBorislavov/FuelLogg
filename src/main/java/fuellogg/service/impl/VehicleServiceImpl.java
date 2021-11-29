@@ -5,6 +5,7 @@ import fuellogg.model.entity.*;
 import fuellogg.model.service.VehicleAddServiceModel;
 import fuellogg.model.view.VehicleViewModel;
 import fuellogg.repository.PictureRepository;
+import fuellogg.repository.StatisticsRepository;
 import fuellogg.repository.VehicleRepository;
 import fuellogg.service.*;
 import javassist.tools.rmi.ObjectNotFoundException;
@@ -14,6 +15,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,15 +31,18 @@ public class VehicleServiceImpl implements VehicleService {
     private final CloudinaryService cloudinaryService;
     private final VehicleRepository vehicleRepository;
     private final PictureRepository pictureRepository;
+    // TODO: not to use statistic repo
+    private final StatisticsRepository statisticsRepository;
 
     @Autowired
-    public VehicleServiceImpl(UserService userService, ModelMapper modelMapper, ModelService modelService, CloudinaryService cloudinaryService, VehicleRepository vehicleRepository, PictureRepository pictureRepository) {
+    public VehicleServiceImpl(UserService userService, ModelMapper modelMapper, ModelService modelService, CloudinaryService cloudinaryService, VehicleRepository vehicleRepository, PictureRepository pictureRepository, StatisticsRepository statisticsRepository) {
         this.userService = userService;
         this.modelMapper = modelMapper;
         this.modelService = modelService;
         this.cloudinaryService = cloudinaryService;
         this.vehicleRepository = vehicleRepository;
         this.pictureRepository = pictureRepository;
+        this.statisticsRepository = statisticsRepository;
     }
 
 
@@ -89,9 +95,26 @@ public class VehicleServiceImpl implements VehicleService {
                 .setId(vehicle.getId())
                 .setUrl(vehicle.getPicture().getUrl())
                 .setOdometer(vehicle.getOdometer())
-                //todo average fuel consumption
+                .setAverageConsumption(calculateAverageConsumption(vehicle))
                 .setBrand(vehicle.getBrand().getName())
                 .setName(vehicle.getName());
+    }
+
+    private BigDecimal calculateAverageConsumption(Vehicle vehicle) {
+        Integer latestFueling = this.statisticsRepository.findTopByVehicle_IdOrderByDateAsc(vehicle.getId()).map(Statistic::getOdometer).orElse(null);
+        Integer mostRecentFueling = this.statisticsRepository.findTopByVehicle_IdOrderByDateDesc(vehicle.getId()).map(Statistic::getOdometer).orElse(null);
+        List<Statistic> statistics = this.statisticsRepository.findAllByVehicle_IdOrderByDateDesc(vehicle.getId()).orElse(null);
+        BigDecimal neededFuel = new BigDecimal(0);
+        BigDecimal averageConsumption = new BigDecimal(0);
+        if(latestFueling != null && mostRecentFueling != null) {
+            for (Statistic statistic : statistics) {
+                neededFuel = neededFuel.add(statistic.getQuantity());
+            }
+            averageConsumption = averageConsumption.add(neededFuel).multiply(BigDecimal.valueOf(100)).divide(BigDecimal.valueOf(mostRecentFueling - latestFueling), RoundingMode.CEILING);
+            return averageConsumption;
+        }
+        //TODO
+        return null;
     }
 
     private Picture createPicture(MultipartFile file) throws IOException {
