@@ -94,10 +94,16 @@ public class VehicleServiceImpl implements VehicleService {
         return new VehicleViewModel()
                 .setId(vehicle.getId())
                 .setUrl(vehicle.getPicture().getUrl())
-                .setOdometer(vehicle.getOdometer())
+                .setOdometer(calculateTheMileage(vehicle))
                 .setAverageConsumption(calculateAverageConsumption(vehicle))
                 .setBrand(vehicle.getBrand().getName())
                 .setName(vehicle.getName());
+    }
+
+    private Integer calculateTheMileage(Vehicle vehicle) {
+        Integer latestFueling = this.statisticsRepository.findTopByVehicle_IdOrderByDateAsc(vehicle.getId()).map(Statistic::getOdometer).orElse(null);
+        Integer mostRecentFueling = this.statisticsRepository.findTopByVehicle_IdOrderByDateDesc(vehicle.getId()).map(Statistic::getOdometer).orElse(null);
+        return mostRecentFueling - latestFueling;
     }
 
     private BigDecimal calculateAverageConsumption(Vehicle vehicle) {
