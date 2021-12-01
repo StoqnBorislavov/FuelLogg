@@ -1,8 +1,10 @@
 package fuellogg.web;
 
 import fuellogg.model.binding.VehicleAddBindingModel;
+import fuellogg.model.view.ExpensesStatisticViewModel;
 import fuellogg.model.view.FuelStatisticViewModel;
 import fuellogg.service.BrandService;
+import fuellogg.service.StatisticsExpensesService;
 import fuellogg.service.StatisticsService;
 import fuellogg.service.VehicleService;
 import fuellogg.service.impl.MyUser;
@@ -27,12 +29,14 @@ public class VehicleController {
     private final BrandService brandService;
     private final VehicleService vehicleService;
     private final StatisticsService statisticsService;
+    private final StatisticsExpensesService statisticsExpensesService;
 
     @Autowired
-    public VehicleController(BrandService brandService, VehicleService vehicleService, StatisticsService statisticsService) {
+    public VehicleController(BrandService brandService, VehicleService vehicleService, StatisticsService statisticsService, StatisticsExpensesService statisticsExpensesService) {
         this.brandService = brandService;
         this.vehicleService = vehicleService;
         this.statisticsService = statisticsService;
+        this.statisticsExpensesService = statisticsExpensesService;
     }
 
 
@@ -64,6 +68,14 @@ public class VehicleController {
         model.addAttribute("make", this.vehicleService.findVehicleById(id));
         model.addAttribute("fuelings", fuelStatistic);
         return "vehicleFueling";
+    }
+
+    @GetMapping("/vehicle/{id}/expenses")
+    private String showExpenses(@PathVariable Long id, Model model){
+        List<ExpensesStatisticViewModel> expenses = this.statisticsExpensesService.getAllStatisticsByVehicleId(id);
+        model.addAttribute("make", this.vehicleService.findVehicleById(id));
+        model.addAttribute("expenses", expenses);
+        return "vehicleExpenses";
     }
 
 

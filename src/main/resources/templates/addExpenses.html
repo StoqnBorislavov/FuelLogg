@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="fragments/head::head"></head>
+
+<body>
+<header th:replace="fragments/navigation::nav"></header>
+<main class="content-wrap">
+    <div class="container">
+        <h2 class="text-center text-white">Add expenses</h2>
+        <form th:method="post" th:action="@{/statistics/addExpenses/{id}(id=*{vehicleId})}"
+              th:object="${addExpensesBindingModel}"
+              class="main-form mx-auto col-md-6 d-flex flex-column justify-content-center">
+
+            <div class="form-group">
+                <label for="odometer" class="text-white font-weight-bold">Odometer</label>
+                <input th:field="*{odometer}" th:errorclass="is-invalid" type="number" step="1" class="form-control"
+                       id="odometer" name="odometer" required
+                       placeholder="Odometer">
+                <small class="invalid-feedback text-danger">Odometer value must be positive number.</small>
+            </div>
+            <div class="form-group">
+
+                <label for="date" class="text-white font-weight-bold">Date</label>
+
+                <input th:field="*{date}" th:errorclass="is-invalid" type="date" class="form-control" id="date"
+                       name="date"/>
+                <small class="invalid-feedback text-danger">You must enter
+                    date!</small>
+            </div>
+            <div class="form-group">
+                <label for="type" class="text-white font-weight-bold">Type</label>
+                <select th:field="*{type}"
+                        th:errorclass="is-invalid"
+                        id="type" class="custom-select">
+                    <option value="" selected>Select type</option>
+                    <option th:each="t :${T(fuellogg.model.enums.StatisticTypeEnum).values()}" th:value="${t}"
+                            th:text="${t}"></option>
+                </select>
+                <small class="invalid-feedback text-danger">Must select type of expenses!</small>
+
+            </div>
+            <div class="form-group">
+                <label for="price" class="text-white font-weight-bold">Price</label>
+                <input th:field="*{price}" th:errorclass="is-invalid" type="number" class="form-control" id="fuelSort" name="fuelSort" required
+                       minlength="5" maxlength="20" placeholder="Price">
+                <small class="invalid-feedback text-danger">Price should be positive!</small>
+            </div>
+            <div class="form-group">
+                <label for="note" class="text-white font-weight-bold">Note</label>
+                <textarea
+                        th:field="*{description}"
+
+                        id="note"
+                        class="form-control"
+                        aria-describedby="inputDescriptionError"></textarea>
+            </div>
+            <div class="row">
+                <div class="col col-md-4">
+                    <div class="button-holder d-flex">
+                        <input type="submit" class="btn btn-secondary btn-lg" value="Add expenses">
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</main>
+<footer th:replace="fragments/footer :: footer"></footer>
+</body>
+</html>

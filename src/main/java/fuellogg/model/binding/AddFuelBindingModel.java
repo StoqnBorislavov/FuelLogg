@@ -4,12 +4,13 @@ import fuellogg.model.enums.RouteEnum;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public class AddFuelBindingModel {
 
-//    private Long id;
+    private Long id;
     private Long vehicleId;
     private LocalDate date;
     private Integer odometer;
@@ -33,7 +34,7 @@ public class AddFuelBindingModel {
         this.date = date;
         return this;
     }
-
+    @NotNull
     public RouteEnum getRoute() {
         return route;
     }
@@ -42,7 +43,7 @@ public class AddFuelBindingModel {
         this.route = route;
         return this;
     }
-
+    @NotNull
     public Long getVehicleId() {
         return vehicleId;
     }
@@ -60,7 +61,7 @@ public class AddFuelBindingModel {
 //        this.id = id;
 //        return this;
 //    }
-
+    @NotNull
     public Integer getOdometer() {
         return odometer;
     }
@@ -78,7 +79,7 @@ public class AddFuelBindingModel {
         this.tripOdometer = tripOdometer;
         return this;
     }
-
+    @NotNull
     public BigDecimal getQuantity() {
         return quantity;
     }
@@ -87,7 +88,7 @@ public class AddFuelBindingModel {
         this.quantity = quantity;
         return this;
     }
-
+    @NotNull
     public String getFuelSort() {
         return fuelSort;
     }
@@ -96,7 +97,8 @@ public class AddFuelBindingModel {
         this.fuelSort = fuelSort;
         return this;
     }
-
+    @NotNull
+    @Positive
     public BigDecimal getPrice() {
         return price;
     }

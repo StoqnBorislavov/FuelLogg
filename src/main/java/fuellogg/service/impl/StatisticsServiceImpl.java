@@ -1,6 +1,7 @@
 package fuellogg.service.impl;
 
 import fuellogg.model.entity.Statistic;
+import fuellogg.model.service.AddExpensesServiceModel;
 import fuellogg.model.service.AddFuelServiceModel;
 import fuellogg.model.view.FuelStatisticViewModel;
 import fuellogg.repository.StatisticsRepository;
@@ -63,6 +64,7 @@ public class StatisticsServiceImpl implements StatisticsService {
                 .map(statistic -> modelMapper.map(statistic, FuelStatisticViewModel.class))
                 .collect(Collectors.toList());
     }
+
 
     private BigDecimal checkFuelConsumption(AddFuelServiceModel addFuelServiceModel, Statistic lastStatistic) {
         BigDecimal consumption = new BigDecimal(0);

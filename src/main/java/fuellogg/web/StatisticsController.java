@@ -1,7 +1,10 @@
 package fuellogg.web;
 
+import fuellogg.model.binding.AddExpensesBindingModel;
 import fuellogg.model.binding.AddFuelBindingModel;
+import fuellogg.model.service.AddExpensesServiceModel;
 import fuellogg.model.service.AddFuelServiceModel;
+import fuellogg.service.StatisticsExpensesService;
 import fuellogg.service.StatisticsService;
 import fuellogg.service.VehicleService;
 import javassist.tools.rmi.ObjectNotFoundException;
@@ -20,12 +23,19 @@ public class StatisticsController {
     private final VehicleService vehicleService;
     private final StatisticsService statisticsService;
     private final ModelMapper modelMapper;
+    private final StatisticsExpensesService statisticsExpensesService;
 
 
-    public StatisticsController(VehicleService vehicleService, StatisticsService statisticsService, ModelMapper modelMapper) {
+    public StatisticsController(VehicleService vehicleService, StatisticsService statisticsService, ModelMapper modelMapper, StatisticsExpensesService statisticsExpensesService) {
         this.vehicleService = vehicleService;
         this.statisticsService = statisticsService;
         this.modelMapper = modelMapper;
+        this.statisticsExpensesService = statisticsExpensesService;
+    }
+
+    @ModelAttribute
+    public AddExpensesBindingModel addExpensesBindingModel(@PathVariable Long id){
+        return new AddExpensesBindingModel().setVehicleId(id).setOdometer(this.vehicleService.lastOdometer(id));
     }
 
 
@@ -54,5 +64,27 @@ public class StatisticsController {
         this.statisticsService.addFuel(this.modelMapper.map(addFuelBindingModel, AddFuelServiceModel.class));
 
         return "redirect:/vehicle/{id}/fueling";
+    }
+
+    @GetMapping("/addExpenses/{id}")
+    public String addExpenses(@PathVariable Long id){
+        return "addExpenses";
+    }
+
+    @PostMapping("/addExpenses/{id}")
+    public String addFuelConfirm(@PathVariable Long id,
+                                 @Valid AddExpensesBindingModel addExpensesBindingModel,
+                                 BindingResult result,
+                                 RedirectAttributes redirectAttributes){
+        if (result.hasErrors()) {
+            redirectAttributes.addFlashAttribute("addExpensesBindingModel", addExpensesBindingModel);
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.addExpensesBindingModel", result);
+            Long vehicleId = addExpensesBindingModel.getVehicleId();
+            return "redirect:/addExpenses/{vehicleId}";
+        }
+
+        this.statisticsExpensesService.addExpenses(this.modelMapper.map(addExpensesBindingModel, AddExpensesServiceModel.class));
+
+        return "redirect:/vehicle/{id}/expenses";
     }
 }
