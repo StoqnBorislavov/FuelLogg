@@ -7,7 +7,7 @@
 <body>
 <header th:replace="fragments/navigation::nav"></header>
 <main>
-    <div class="group">
+    <div class="container">
         <h3 class="home text-center container-fluid" th:text="|My vehicles: ${vehiclesCount}|" >My vechicles: 2 </h3>
         <div class="col text-center">
             <a type="button" class="btn btn-outline-secondary container-justify" th:href="@{/vehicle/add}">Add new vehicle</a>

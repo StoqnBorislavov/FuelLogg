@@ -9,6 +9,13 @@ body {
 
 }
 
+body.test{
+    background: linear-gradient(rgb(20, 20, 20), rgba(23, 23, 23, 0.01)), url('/images/502-resized.jpg');
+    background-position: center;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
 /* This is for the image logo in top left side */
 
 img {

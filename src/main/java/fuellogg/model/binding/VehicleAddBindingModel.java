@@ -15,6 +15,7 @@ import javax.validation.constraints.PositiveOrZero;
 public class VehicleAddBindingModel {
 
     private Long modelId;
+    private Long brandId;
     private MultipartFile picture;
     private String name;
     private Integer horsePower;
@@ -22,9 +23,18 @@ public class VehicleAddBindingModel {
     private EngineEnum engine;
     private TransmissionEnum transmission;
     private Integer odometer;
-//    private Brand brand;
+
 
     public VehicleAddBindingModel() {
+    }
+
+    public Long getBrandId() {
+        return brandId;
+    }
+
+    public VehicleAddBindingModel setBrandId(Long brandId) {
+        this.brandId = brandId;
+        return this;
     }
 
     @NotNull

@@ -3,10 +3,19 @@ package fuellogg.model.view;
 public class ModelViewModel {
 
     private Long id;
-    private BrandViewModel name;
+    private String name;
 
     public ModelViewModel() {
 
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public ModelViewModel setName(String name) {
+        this.name = name;
+        return this;
     }
 
     public Long getId() {
@@ -18,12 +27,4 @@ public class ModelViewModel {
         return this;
     }
 
-    public BrandViewModel getName() {
-        return name;
-    }
-
-    public ModelViewModel setName(BrandViewModel name) {
-        this.name = name;
-        return this;
-    }
 }
