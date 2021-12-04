@@ -13,8 +13,10 @@
             <a type="button" class="btn btn-outline-secondary container-justify" th:href="@{/vehicle/add}">Add new vehicle</a>
         </div>
     </div>
-    <div class="group margin-left: 10px margin-bottom: 10px">
-        <div th:each="m : ${myVehicles}" th:object="${m}" class="col-lg-3 col-md-4 col-sm-6 col-12">
+    <br>
+    <br>
+    <div class="row margin-left: 20px margin-bottom: 10px d-flex">
+        <div th:each="m : ${myVehicles}" th:object="${m}" class="col-lg-3 col-md-4 col-sm-6 col-10">
             <div class="vechicle card sm-3 md-3 mb-4 box-shadow">
                 <img th:src="*{url}" src="IMG_1433.jpg" class="card-img-top"
                      alt="Thumbnail [100%x225]" data-holder-rendered="true"

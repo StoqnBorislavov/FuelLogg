@@ -14,7 +14,7 @@
 
             <div class="form-group">
                 <label for="brandId" class="text-white font-weight-bold">Brand</label>
-                <select th:errorclass="is-invalid" id="brandId" name="brandId" class="form-control">
+                <select th:field="*{brandName}" th:errorclass="is-invalid" id="brandId" name="brandId" class="form-control">
                     <option value="">- Select a Brand -</option>
                     <option th:each="b :${brandsModels}" th:value="${b.name}"
                             th:text="${b.name}"></option>
@@ -23,11 +23,10 @@
             </div>
             <div class="form-group">
                 <label for="modelId" class="text-white font-weight-bold">Model</label>
-                <select th:errorclass="is-invalid" id="modelId" name="modelId" class="form-control">
+                <select th:field="*{modelName}" th:errorclass="is-invalid" id="modelId" name="modelId" class="form-control">
                     <option value="">- Select a Model -</option>
-
                 </select>
-                <small class="invalid-feedback text-danger">Vechicle model is required.</small>
+                <small class="invalid-feedback text-danger">Vehicle model is required.</small>
             </div>
             <div class="form-group">
                 <div class="form-group">

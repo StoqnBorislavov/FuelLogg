@@ -13,5 +13,7 @@ public interface ModelService {
 
     List<ModelViewModel> getAllByBrandName(String brandName);
 
+    ModelViewModel findByName(String modelName);
+
 }
 

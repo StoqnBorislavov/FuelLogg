@@ -4,6 +4,7 @@ import fuellogg.model.binding.VehicleAddBindingModel;
 import fuellogg.model.entity.*;
 import fuellogg.model.service.VehicleAddServiceModel;
 import fuellogg.model.view.VehicleViewModel;
+import fuellogg.repository.ModelRepository;
 import fuellogg.repository.PictureRepository;
 import fuellogg.repository.StatisticsRepository;
 import fuellogg.repository.VehicleRepository;
@@ -20,6 +21,7 @@ import java.math.RoundingMode;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 @Service
@@ -28,6 +30,7 @@ public class VehicleServiceImpl implements VehicleService {
     private final UserService userService;
     private final ModelMapper modelMapper;
     private final ModelService modelService;
+    private final ModelRepository modelRepository;
     private final CloudinaryService cloudinaryService;
     private final VehicleRepository vehicleRepository;
     private final PictureRepository pictureRepository;
@@ -35,10 +38,11 @@ public class VehicleServiceImpl implements VehicleService {
     private final StatisticsRepository statisticsRepository;
 
     @Autowired
-    public VehicleServiceImpl(UserService userService, ModelMapper modelMapper, ModelService modelService, CloudinaryService cloudinaryService, VehicleRepository vehicleRepository, PictureRepository pictureRepository, StatisticsRepository statisticsRepository) {
+    public VehicleServiceImpl(UserService userService, ModelMapper modelMapper, ModelService modelService, ModelRepository modelRepository, CloudinaryService cloudinaryService, VehicleRepository vehicleRepository, PictureRepository pictureRepository, StatisticsRepository statisticsRepository) {
         this.userService = userService;
         this.modelMapper = modelMapper;
         this.modelService = modelService;
+        this.modelRepository = modelRepository;
         this.cloudinaryService = cloudinaryService;
         this.vehicleRepository = vehicleRepository;
         this.pictureRepository = pictureRepository;
@@ -54,7 +58,7 @@ public class VehicleServiceImpl implements VehicleService {
         Vehicle vehicle = modelMapper.map(vehicleAddServiceModel, Vehicle.class);
         vehicle.setCreated(Instant.now());
         vehicle.setOwner(user);
-        Model model = this.modelService.findById(vehicleAddBindingModel.getModelId());
+        Model model = this.modelRepository.findByName(vehicleAddBindingModel.getModelName()).orElseThrow(()-> new NoSuchElementException());
         Brand brand = model.getBrand();
         vehicle.setBrand(brand);
         Picture picture = this.createPicture(vehicleAddBindingModel.getPicture());
@@ -101,8 +105,8 @@ public class VehicleServiceImpl implements VehicleService {
     }
 
     private Integer calculateTheMileage(Vehicle vehicle) {
-        Integer latestFueling = this.statisticsRepository.findTopByVehicle_IdOrderByDateAsc(vehicle.getId()).map(Statistic::getOdometer).orElse(null);
-        Integer mostRecentFueling = this.statisticsRepository.findTopByVehicle_IdOrderByDateDesc(vehicle.getId()).map(Statistic::getOdometer).orElse(null);
+        Integer latestFueling = this.statisticsRepository.findTopByVehicle_IdOrderByDateAsc(vehicle.getId()).map(Statistic::getOdometer).orElse(0);
+        Integer mostRecentFueling = this.statisticsRepository.findTopByVehicle_IdOrderByDateDesc(vehicle.getId()).map(Statistic::getOdometer).orElse(0);
         return mostRecentFueling - latestFueling;
     }
 
@@ -120,7 +124,7 @@ public class VehicleServiceImpl implements VehicleService {
             return averageConsumption;
         }
         //TODO
-        return null;
+        return new BigDecimal(0);
     }
 
     private Picture createPicture(MultipartFile file) throws IOException {

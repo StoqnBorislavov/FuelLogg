@@ -1,10 +1,7 @@
 package fuellogg.model.binding;
 
-import fuellogg.model.entity.Brand;
-import fuellogg.model.entity.Picture;
 import fuellogg.model.enums.EngineEnum;
 import fuellogg.model.enums.TransmissionEnum;
-import org.springframework.lang.Nullable;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.Min;
@@ -14,8 +11,8 @@ import javax.validation.constraints.PositiveOrZero;
 
 public class VehicleAddBindingModel {
 
-    private Long modelId;
-    private Long brandId;
+    private String brandName;
+    private String modelName;
     private MultipartFile picture;
     private String name;
     private Integer horsePower;
@@ -27,23 +24,22 @@ public class VehicleAddBindingModel {
 
     public VehicleAddBindingModel() {
     }
-
-    public Long getBrandId() {
-        return brandId;
+    @NotNull
+    public String getBrandName() {
+        return brandName;
     }
 
-    public VehicleAddBindingModel setBrandId(Long brandId) {
-        this.brandId = brandId;
+    public VehicleAddBindingModel setBrandName(String brandName) {
+        this.brandName = brandName;
         return this;
     }
-
     @NotNull
-    public Long getModelId() {
-        return modelId;
+    public String getModelName() {
+        return modelName;
     }
 
-    public VehicleAddBindingModel setModelId(Long modelId) {
-        this.modelId = modelId;
+    public VehicleAddBindingModel setModelName(String modelName) {
+        this.modelName = modelName;
         return this;
     }
 

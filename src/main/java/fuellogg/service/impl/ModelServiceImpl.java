@@ -72,6 +72,11 @@ public class ModelServiceImpl implements ModelService {
         return brandEntity.getModels().stream().map(m -> modelMapper.map(m, ModelViewModel.class)).collect(Collectors.toList());
     }
 
+    @Override
+    public ModelViewModel findByName(String modelName) {
+        return this.modelRepository.findByName(modelName).map(model -> modelMapper.map(model, ModelViewModel.class
+        )).orElseThrow(()-> new EntityNotFoundException());
+    }
 
 
 }

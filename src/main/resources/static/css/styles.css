@@ -59,7 +59,7 @@ form.main-form {
 }
 
 footer {
-    position: absolute;
+    position: fixed;
     left: 0;
     bottom: 0;
     width: 100%;
@@ -306,5 +306,10 @@ h1{
 }
 .d-flex{
     background-color: transparent;
+}
+div.row{
+    margin-left: 15px;
+    margin-right: 15px;
+    justify-content: center;
 }
 

@@ -54,7 +54,7 @@ public class VehicleController {
             redirectAttributes.addFlashAttribute("vehicleAddBindingModel", vehicleAddBindingModel);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.vehicleAddBindingModel", result);
             redirectAttributes.addFlashAttribute("brandsModels", brandService.getAllBrands());
-            return "redirect:/addVehicle";
+            return "redirect:/vehicle/add";
         }
 
 
