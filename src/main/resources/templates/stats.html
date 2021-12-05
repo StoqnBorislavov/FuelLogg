@@ -7,18 +7,21 @@
 <body>
 <header th:replace="fragments/navigation::nav"></header>
 <main>
-        <div class="container">
-            <h3 class="e text-center">Statistics.</h3>
-            <form  class="main-form mx-auto col-md-6 d-flex flex-column justify-content-center">
-                <div class="form-group">
-                    <h3 class="c text-center  mt-5" th:text="|Biggest Log time for last 24 hours: ${stats.getBiggestTime()} ms|"></h3>
-                    <h3 class="c text-center  mt-5" th:text="|Total requests: ${stats.getTotalRequest()}|"></h3>
-                    <h3 class="c text-center  mt-5" th:text="|Anonymous requests: ${stats.getAnonymousRequest()}|"></h3>
-                    <h3 class="c text-center  mt-5" th:text="|Authorized requests: ${stats.getAuthRequest()}|"></h3>
-                </div>
-            </form>
-        </div>
-    </main>
+    <div class="container">
+        <h2 class="е" style="text-align: center; color: oldlace;">Statistics.</h2>
+        <form class="main-form mx-auto col-md-6 d-flex flex-column justify-content-center">
+            <div class="form-group">
+                <h3 class="c text-center  mt-5"
+                    th:text="|Biggest Log time for last 24 hours: ${stats.getBiggestTime()} ms|"></h3>
+                <h3 class="c text-center  mt-5" th:text="|Total requests: ${stats.getTotalRequest()}|"></h3>
+                <h3 class="c text-center  mt-5" th:text="|Total requests on adding fuel option: ${stats.getAddFuelings()}|"></h3>
+                <h3 class="c text-center  mt-5" th:text="|Total requests on adding expenses option: ${stats.getAddExpenses()}|"></h3>
+                <h3 class="c text-center  mt-5" th:text="|Anonymous requests: ${stats.getAnonymousRequest()}|"></h3>
+                <h3 class="c text-center  mt-5" th:text="|Authorized requests: ${stats.getAuthRequest()}|"></h3>
+            </div>
+        </form>
+    </div>
+</main>
 <footer th:replace="fragments/footer :: footer"></footer>
 </body>
 

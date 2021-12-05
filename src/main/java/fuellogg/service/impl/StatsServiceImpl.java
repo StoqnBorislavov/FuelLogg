@@ -20,11 +20,10 @@ import java.time.ZoneOffset;
 @Service
 public class StatsServiceImpl implements StatsService {
 
-
-
     private final AdminStatRepository adminStatRepository;
 
-
+    private int countFuelings;
+    private int countExpenses;
     private int anonymousRequest;
     private int authRequest;
 
@@ -47,6 +46,17 @@ public class StatsServiceImpl implements StatsService {
     }
 
     @Override
+    public void countFuelHits() {
+        this.adminStatRepository.save(new AdminStat().setRequestOnFuelAdd(++countFuelings));
+    }
+
+    @Override
+    public void countExpensesHits() {
+        this.adminStatRepository.save(new AdminStat().setGetRequestOnExpenseAdd(++countExpenses));
+    }
+
+
+    @Override
     public void calculateTimeForLog(long endTime, long startTime) {
         AdminStat adminStat = new AdminStat();
         adminStat.setLogTime(endTime-startTime);
@@ -59,7 +69,7 @@ public class StatsServiceImpl implements StatsService {
         AdminStat adminStat = this.adminStatRepository.findTopByCreatedAfterOrderByLogTimeDesc(newInst)
                 .orElseThrow(()-> new UnsupportedOperationException("There is no log times"));
 
-        return new StatisticView(authRequest, anonymousRequest, adminStat.getLogTime());
+        return new StatisticView(authRequest, anonymousRequest, countFuelings, countExpenses, adminStat.getLogTime());
     }
 
     @Transactional

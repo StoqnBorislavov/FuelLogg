@@ -10,6 +10,27 @@ public class AdminStat extends BaseEntity{
     private Long logTime;
     private int authenticatedRequest;
     private int anonymousRequest;
+    private int requestOnFuelAdd;
+    private int getRequestOnExpenseAdd;
+
+    @Column
+    public int getRequestOnFuelAdd() {
+        return requestOnFuelAdd;
+    }
+
+    public AdminStat setRequestOnFuelAdd(int requestOnFuelAdd) {
+        this.requestOnFuelAdd = requestOnFuelAdd;
+        return this;
+    }
+    @Column
+    public int getGetRequestOnExpenseAdd() {
+        return getRequestOnExpenseAdd;
+    }
+
+    public AdminStat setGetRequestOnExpenseAdd(int getRequestOnExpenseAdd) {
+        this.getRequestOnExpenseAdd = getRequestOnExpenseAdd;
+        return this;
+    }
 
     @Column
     public Long getLogTime() {

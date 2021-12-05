@@ -87,7 +87,7 @@ public class Statistic extends BaseEntity{
         this.route = route;
         return this;
     }
-    @Column(columnDefinition = "TEXT")
+    @Lob
     public String getDescription() {
         return description;
     }

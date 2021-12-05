@@ -7,12 +7,19 @@ import org.springframework.web.servlet.ModelAndView;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
+        public static final String PAGE_NOT_FOUND="Page not found!";
 
         @ExceptionHandler(Exception.class)
         public ModelAndView handleAnyError(Exception e) {
             ModelAndView modelAndView = new ModelAndView();
-            modelAndView.addObject("errorMessage", e.getMessage());
+            if(!e.getMessage().isEmpty()) {
+                modelAndView.addObject("errorMessage", e.getMessage());
+            } else {
+                modelAndView.addObject("errorMessage", PAGE_NOT_FOUND);
+            }
+
             modelAndView.setViewName("error.html");
+            modelAndView.setStatus(HttpStatus.NOT_FOUND);
             return modelAndView;
         }
 }

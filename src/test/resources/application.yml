@@ -1,0 +1,13 @@
+spring:
+#  sql:
+#    init:
+#      mode: never
+  jpa:
+    hibernate:
+      ddl-auto: create
+#schedulers:
+#  cron: "0 2 */1 * * *"
+cloudinary:
+  api-key: 493324265438926
+  api-secret:  ${CLOUDINARY_API_SECRET}
+  cloud-name: dogm4cmbj

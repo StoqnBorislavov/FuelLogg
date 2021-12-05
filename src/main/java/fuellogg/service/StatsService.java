@@ -7,8 +7,11 @@ public interface StatsService {
 
     void onRequest();
 
-    void calculateTimeForLog(long endTime, long startTime);
+    void countFuelHits();
 
+    void countExpensesHits();
+
+    void calculateTimeForLog(long endTime, long startTime);
 
     StatisticView getStatistic();
 
