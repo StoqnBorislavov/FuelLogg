@@ -10,8 +10,11 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 
 
 @Service
@@ -57,6 +60,14 @@ public class StatsServiceImpl implements StatsService {
                 .orElseThrow(()-> new UnsupportedOperationException("There is no log times"));
 
         return new StatisticView(authRequest, anonymousRequest, adminStat.getLogTime());
+    }
+
+    @Transactional
+    @Override
+    public void cleanUpDb() {
+        LocalDateTime now = LocalDateTime.now().minusMinutes(1);
+        LocalDateTime before24Hours = now.minusHours(24);
+        this.adminStatRepository.deleteAllByCreatedBetween(before24Hours.toInstant(ZoneOffset.UTC), now.toInstant(ZoneOffset.UTC));
     }
 
 
