@@ -76,20 +76,19 @@ public class VehicleServiceImpl implements VehicleService {
 
     @Override
     public Integer lastOdometer(Long id) {
-       return this.vehicleRepository.findById(id).map(Vehicle::getOdometer).orElseThrow(()-> new UnsupportedOperationException());
+       return this.vehicleRepository.findById(id).map(Vehicle::getOdometer).orElseThrow(()-> new fuellogg.model.exception.ObjectNotFoundException("Vehicle not found!"));
     }
 
     @Override
     public void updateVehicle(Long vehicleId, Integer odometer) throws ObjectNotFoundException {
-        Vehicle vehicle = this.vehicleRepository.findById(vehicleId).orElseThrow(() -> new ObjectNotFoundException("Vehicle with id " + vehicleId + " not found!"));
+        Vehicle vehicle = this.vehicleRepository.findById(vehicleId).orElseThrow(()-> new fuellogg.model.exception.ObjectNotFoundException("Vehicle not found!"));
         vehicle.setOdometer(odometer);
         this.vehicleRepository.save(vehicle);
     }
 
     @Override
     public String findVehicleById(Long id) {
-        //todo: exception handling
-        Vehicle vehicle = this.vehicleRepository.findById(id).orElse(null);
+        Vehicle vehicle = this.vehicleRepository.findById(id).orElseThrow(()-> new fuellogg.model.exception.ObjectNotFoundException("Vehicle not found!"));
         return vehicle.getBrand().getName() + " " + vehicle.getName();
     }
 
@@ -113,7 +112,7 @@ public class VehicleServiceImpl implements VehicleService {
     private BigDecimal calculateAverageConsumption(Vehicle vehicle) {
         Integer latestFueling = this.statisticsRepository.findTopByVehicle_IdOrderByDateAsc(vehicle.getId()).map(Statistic::getOdometer).orElse(null);
         Integer mostRecentFueling = this.statisticsRepository.findTopByVehicle_IdOrderByDateDesc(vehicle.getId()).map(Statistic::getOdometer).orElse(null);
-        List<Statistic> statistics = this.statisticsRepository.findAllByVehicle_IdOrderByDateDesc(vehicle.getId()).orElse(null);
+        List<Statistic> statistics = this.statisticsRepository.findAllByVehicle_IdOrderByDateDesc(vehicle.getId()).orElseThrow(() -> new fuellogg.model.exception.ObjectNotFoundException("Statistics not found!"));
         BigDecimal neededFuel = new BigDecimal(0);
         BigDecimal averageConsumption = new BigDecimal(0);
         if(latestFueling != null && mostRecentFueling != null) {
@@ -123,7 +122,6 @@ public class VehicleServiceImpl implements VehicleService {
             averageConsumption = averageConsumption.add(neededFuel).multiply(BigDecimal.valueOf(100)).divide(BigDecimal.valueOf(mostRecentFueling - latestFueling), RoundingMode.CEILING);
             return averageConsumption;
         }
-        //TODO
         return new BigDecimal(0);
     }
 

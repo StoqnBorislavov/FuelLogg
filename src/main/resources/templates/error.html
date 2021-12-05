@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="fragments/head::head"></head>
+
+<body>
+<header th:replace="fragments/navigation::nav"></header>
+<main>
+    <main>
+        <div class="container">
+            <h3 class="d-flex col-2 col-sm-2 col-md-4 col-lg-5" th:text="${errorMessage}">
+                Here is the error.
+            </h3>
+        </div>
+    </main>
+    <footer th:replace="fragments/footer :: footer"></footer>
+</body>
+
+</html>

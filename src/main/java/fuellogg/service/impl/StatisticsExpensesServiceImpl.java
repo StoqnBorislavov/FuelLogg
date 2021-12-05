@@ -1,9 +1,9 @@
 package fuellogg.service.impl;
 
 import fuellogg.model.entity.StatisticExpenses;
+import fuellogg.model.exception.ObjectNotFoundException;
 import fuellogg.model.service.AddExpensesServiceModel;
 import fuellogg.model.view.ExpensesStatisticViewModel;
-import fuellogg.model.view.FuelStatisticViewModel;
 import fuellogg.repository.StatisticsExpensesRepository;
 import fuellogg.service.StatisticsExpensesService;
 import fuellogg.service.VehicleService;
@@ -36,7 +36,7 @@ public class StatisticsExpensesServiceImpl implements StatisticsExpensesService 
     @Override
     public List<ExpensesStatisticViewModel> getAllStatisticsByVehicleId(Long vehicleId) {
         return this.statisticsExpensesRepository.findAllByVehicle_IdOrderByDateDesc(vehicleId)
-                .orElseThrow(UnsupportedOperationException::new)
+                .orElseThrow(() -> new ObjectNotFoundException("Statistics not found!"))
                 .stream()
                 .map(statistic -> modelMapper.map(statistic, ExpensesStatisticViewModel.class))
                 .collect(Collectors.toList());

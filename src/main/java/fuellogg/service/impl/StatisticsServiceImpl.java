@@ -1,13 +1,13 @@
 package fuellogg.service.impl;
 
 import fuellogg.model.entity.Statistic;
+import fuellogg.model.exception.ObjectNotFoundException;
 import fuellogg.model.service.AddExpensesServiceModel;
 import fuellogg.model.service.AddFuelServiceModel;
 import fuellogg.model.view.FuelStatisticViewModel;
 import fuellogg.repository.StatisticsRepository;
 import fuellogg.service.StatisticsService;
 import fuellogg.service.VehicleService;
-import javassist.tools.rmi.ObjectNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,7 +34,7 @@ public class StatisticsServiceImpl implements StatisticsService {
 
     @Override
     @Transactional
-    public void addFuel(AddFuelServiceModel addFuelServiceModel) throws ObjectNotFoundException {
+    public void addFuel(AddFuelServiceModel addFuelServiceModel) throws javassist.tools.rmi.ObjectNotFoundException {
         Statistic newStatistic = new Statistic();
         Statistic lastStatistic = this.statisticsRepository
                 .findTopByVehicle_IdOrderByDateDesc(addFuelServiceModel.getVehicleId()).orElse(null);
@@ -59,7 +59,7 @@ public class StatisticsServiceImpl implements StatisticsService {
     @Override
     public List<FuelStatisticViewModel> getAllStatisticsByVehicleId(Long id) {
         return this.statisticsRepository.findAllByVehicle_IdOrderByDateDesc(id)
-                .orElseThrow(UnsupportedOperationException::new)
+                .orElseThrow(()-> new ObjectNotFoundException("Statistics not found!"))
                 .stream()
                 .map(statistic -> modelMapper.map(statistic, FuelStatisticViewModel.class))
                 .collect(Collectors.toList());

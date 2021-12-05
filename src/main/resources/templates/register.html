@@ -14,9 +14,9 @@
                     <label for="username" class="text-white font-weight-bold">Username</label>
                     <input th:field="*{username}" th:errorclass="is-invalid" type="text" class="form-control" id="username" name="username" required minlength="5"
                         maxlength="15" placeholder="Username">
-                    <small class="invalid-feedback text-danger">Username length must be between 5 and 15 characters!</small>
-<!--                    <br />-->
-<!--                    <small id="usernameUniqueError" class="text-danger">Username is already occupied!</small>-->
+                    <small th:if="${#fields.errors('username')}" th:errors="*{username}"  class="text-danger">Username length must be between 5 and 15 characters!</small>
+<!--&lt;!&ndash;                    <br />&ndash;&gt;-->
+<!--                    <small id="usernameUniqueError" class="invalid-feedback text-danger">Username is already occupied!</small>-->
 
                 </div>
                 <div class="form-group">
@@ -38,9 +38,9 @@
                 </div>
                 <div class="form-group">
                     <label for="confirmPassword" class="text-white font-weight-bold">Confirm Password</label>
-                    <input th:field="*{confirmPassword}" th:errorclass="is-invalid" type="password" class="form-control" id="confirmPassword" name="confirmPassword" required
+                    <input th:field="*{confirmPassword}" type="password" class="form-control" id="confirmPassword" name="confirmPassword" required
                         minlength="4" maxlength="20" placeholder="Confirm Password">
-                    <small class="invalid-feedback text-danger">Passwords should match!</small>
+                    <small th:if="${passwordsNotMatch}" class="text-danger">Passwords should match!</small>
                 </div>
                 <div class="row">
                     <div class="col col-md-4">

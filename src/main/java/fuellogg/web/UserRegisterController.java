@@ -37,7 +37,8 @@ public class UserRegisterController {
 
 
     @GetMapping("/register")
-    public String registerUser() {
+    public String registerUser(Model model) {
+//        model.addAttribute("passwordsNotMatch", false);
         return "register";
     }
 
@@ -49,7 +50,12 @@ public class UserRegisterController {
         if (result.hasErrors() || !userRegisterBindingModel.getPassword().equals(userRegisterBindingModel.getConfirmPassword())) {
             redirectAttributes.addFlashAttribute("userRegisterBindingModel", userRegisterBindingModel);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.userRegisterBindingModel", result);
+
+            if (!userRegisterBindingModel.getPassword().equals(userRegisterBindingModel.getConfirmPassword())) {
+                redirectAttributes.addFlashAttribute("passwordsNotMatch", true);
+            }
             return "redirect:/users/register";
+
         }
 
         UserRegisterServiceModel serviceModel = modelMapper.map(userRegisterBindingModel, UserRegisterServiceModel.class);

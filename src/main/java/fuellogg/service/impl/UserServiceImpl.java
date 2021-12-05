@@ -3,6 +3,7 @@ package fuellogg.service.impl;
 import fuellogg.model.entity.User;
 import fuellogg.model.entity.UserRole;
 import fuellogg.model.enums.UserRoleEnum;
+import fuellogg.model.exception.ObjectNotFoundException;
 import fuellogg.model.service.UserRegisterServiceModel;
 import fuellogg.repository.UserRepository;
 import fuellogg.repository.UserRoleRepository;
@@ -83,7 +84,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findByUsername(String username) {
-        return this.userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("Username " + username + " not found!"));
+        return this.userRepository.findByUsername(username).orElseThrow(()-> new ObjectNotFoundException("User not found!"));
     }
 
     @Override

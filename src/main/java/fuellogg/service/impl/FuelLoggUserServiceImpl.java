@@ -1,6 +1,7 @@
 package fuellogg.service.impl;
 
 import fuellogg.model.entity.User;
+import fuellogg.model.exception.ObjectNotFoundException;
 import fuellogg.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -28,7 +29,7 @@ public class FuelLoggUserServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository
                     .findByUsername(username)
-                    .orElseThrow(() -> new UsernameNotFoundException("User with name " + username + " not found!"));
+                    .orElseThrow(() -> new ObjectNotFoundException("User with name " + username + " not found!"));
         return mapToUserDetails(user);
     }
     private static UserDetails mapToUserDetails(User user){
