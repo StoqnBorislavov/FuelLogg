@@ -17,8 +17,7 @@ public class GlobalExceptionHandler {
             } else {
                 modelAndView.addObject("errorMessage", PAGE_NOT_FOUND);
             }
-
-            modelAndView.setViewName("error.html");
+            modelAndView.setViewName("page.html");
             modelAndView.setStatus(HttpStatus.NOT_FOUND);
             return modelAndView;
         }

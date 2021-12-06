@@ -13,6 +13,7 @@ import javassist.tools.rmi.ObjectNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -22,6 +23,7 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -51,6 +53,7 @@ public class VehicleServiceImpl implements VehicleService {
 
 
     @Override
+    @Transactional
     public void addVehicle(VehicleAddBindingModel vehicleAddBindingModel, String ownerId) throws IOException {
         User user = userService.findByUsername(ownerId);
         VehicleAddServiceModel vehicleAddServiceModel = modelMapper.map(vehicleAddBindingModel,
@@ -90,6 +93,15 @@ public class VehicleServiceImpl implements VehicleService {
     public String findVehicleById(Long id) {
         Vehicle vehicle = this.vehicleRepository.findById(id).orElseThrow(()-> new fuellogg.model.exception.ObjectNotFoundException("Vehicle not found!"));
         return vehicle.getBrand().getName() + " " + vehicle.getName();
+    }
+
+    @Override
+    public boolean isOwner(Long id, String username) {
+        Optional<Vehicle> vehicle = vehicleRepository.findById(id);
+        if(vehicle.isEmpty()){
+            return false;
+        }
+        return vehicle.get().getOwner().getUsername().equals(username);
     }
 
 

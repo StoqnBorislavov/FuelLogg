@@ -14,9 +14,10 @@ public interface VehicleService {
 
     Integer lastOdometer(Long id);
 
-
     void updateVehicle(Long vehicleId, Integer odometer) throws ObjectNotFoundException;
 
     String findVehicleById(Long id);
+
+    boolean isOwner(Long id, String username);
 
 }

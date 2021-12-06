@@ -13,5 +13,5 @@ spring:
     open-in-view: false
 cloudinary:
   api-key: 493324265438926
-  api-secret:  ${CLOUDINARY_API_SECRET}
+  api-secret:  ${CLOUDINARY_API_SECRET:USKJMuVdmHA8IqQJxfsG6eBCJDQ}
   cloud-name: dogm4cmbj

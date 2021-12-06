@@ -88,7 +88,7 @@ public class Vehicle extends BaseEntity {
                 this.odometer = odometer;
                 return this;
         }
-        @ManyToOne
+        @ManyToOne(cascade = CascadeType.ALL)
         public Brand getBrand() {
                 return brand;
         }

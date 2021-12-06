@@ -18,8 +18,20 @@ public class User extends BaseEntity{
 
     private Set<UserRole> roles;
 
+    private List<Vehicle> vehicles;
+
 
     public User() {
+    }
+
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
+    public List<Vehicle> getVehicles() {
+        return vehicles;
+    }
+
+    public User setVehicles(List<Vehicle> vehicles) {
+        this.vehicles = vehicles;
+        return this;
     }
 
     @Column(nullable = false, unique = true)
