@@ -3,6 +3,7 @@ package fuellogg.config;
 import fuellogg.model.enums.UserRoleEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -10,6 +11,7 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
@@ -63,7 +65,9 @@ public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapt
                 // remove the session from server
                         invalidateHttpSession(true).
                 //delete the cookie that references my session
-                        deleteCookies("JSESSIONID");
+                        deleteCookies("JSESSIONID").
+                and()
+                .exceptionHandling();
 
     }
 

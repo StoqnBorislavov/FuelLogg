@@ -83,7 +83,7 @@ public class VehicleServiceImpl implements VehicleService {
     }
 
     @Override
-    public void updateVehicle(Long vehicleId, Integer odometer) throws ObjectNotFoundException {
+    public void updateVehicle(Long vehicleId, Integer odometer){
         Vehicle vehicle = this.vehicleRepository.findById(vehicleId).orElseThrow(()-> new fuellogg.model.exception.ObjectNotFoundException("Vehicle not found!"));
         vehicle.setOdometer(odometer);
         this.vehicleRepository.save(vehicle);
@@ -104,6 +104,12 @@ public class VehicleServiceImpl implements VehicleService {
         return vehicle.get().getOwner().getUsername().equals(username);
     }
 
+    @Override
+    public VehicleViewModel findVehicleViewModelById(Long id) throws ObjectNotFoundException {
+        VehicleViewModel vehicleViewModel = modelMapper.map(this.vehicleRepository.findById(id).orElseThrow(()->new ObjectNotFoundException("Vehicle not found!")), VehicleViewModel.class);
+        return vehicleViewModel;
+    }
+
 
     private VehicleViewModel customMap(Vehicle vehicle){
         return new VehicleViewModel()
@@ -116,18 +122,23 @@ public class VehicleServiceImpl implements VehicleService {
     }
 
     private Integer calculateTheMileage(Vehicle vehicle) {
-        Integer latestFueling = this.statisticsRepository.findTopByVehicle_IdOrderByDateAsc(vehicle.getId()).map(Statistic::getOdometer).orElse(0);
-        Integer mostRecentFueling = this.statisticsRepository.findTopByVehicle_IdOrderByDateDesc(vehicle.getId()).map(Statistic::getOdometer).orElse(0);
-        return mostRecentFueling - latestFueling;
+        Integer latestFueling = this.statisticsRepository.findTopByVehicle_IdOrderByCreatedAsc(vehicle.getId()).map(Statistic::getOdometer).orElse(0);
+        Integer mostRecentFueling = this.statisticsRepository.findTopByVehicle_IdOrderByCreatedDesc(vehicle.getId()).map(Statistic::getOdometer).orElse(0);
+        if(latestFueling.equals(mostRecentFueling)) {
+            return statisticsRepository.findTopByVehicle_IdOrderByCreatedDesc(vehicle.getId()).map(Statistic::getTrip).orElse(0);
+        }
+        return mostRecentFueling + statisticsRepository.findTopByVehicle_IdOrderByCreatedDesc(vehicle.getId()).map(Statistic::getTrip).orElse(0) - latestFueling ;
     }
 
     private BigDecimal calculateAverageConsumption(Vehicle vehicle) {
-        Integer latestFueling = this.statisticsRepository.findTopByVehicle_IdOrderByDateAsc(vehicle.getId()).map(Statistic::getOdometer).orElse(null);
-        Integer mostRecentFueling = this.statisticsRepository.findTopByVehicle_IdOrderByDateDesc(vehicle.getId()).map(Statistic::getOdometer).orElse(null);
-        List<Statistic> statistics = this.statisticsRepository.findAllByVehicle_IdOrderByDateDesc(vehicle.getId()).orElseThrow(() -> new fuellogg.model.exception.ObjectNotFoundException("Statistics not found!"));
+        Integer latestFueling = this.statisticsRepository.findTopByVehicle_IdOrderByCreatedAsc(vehicle.getId()).map(Statistic::getOdometer).orElse(null);
+        Integer mostRecentFueling = this.statisticsRepository.findTopByVehicle_IdOrderByCreatedDesc(vehicle.getId()).map(Statistic::getOdometer).orElse(null);
+        List<Statistic> statistics = this.statisticsRepository.findAllByVehicle_IdOrderByCreatedDesc(vehicle.getId()).orElseThrow(() -> new fuellogg.model.exception.ObjectNotFoundException("Statistics not found!"));
         BigDecimal neededFuel = new BigDecimal(0);
         BigDecimal averageConsumption = new BigDecimal(0);
-        if(latestFueling != null && mostRecentFueling != null) {
+        if(latestFueling.equals(mostRecentFueling)){
+            return this.statisticsRepository.findTopByVehicle_IdOrderByCreatedDesc(vehicle.getId()).get().getFuelConsumption();
+        } else if(latestFueling != null && mostRecentFueling != null) {
             for (Statistic statistic : statistics) {
                 neededFuel = neededFuel.add(statistic.getQuantity());
             }

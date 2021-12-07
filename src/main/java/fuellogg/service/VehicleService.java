@@ -20,4 +20,6 @@ public interface VehicleService {
 
     boolean isOwner(Long id, String username);
 
+    VehicleViewModel findVehicleViewModelById(Long id) throws ObjectNotFoundException;
+
 }

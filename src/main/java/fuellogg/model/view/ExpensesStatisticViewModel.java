@@ -6,10 +6,20 @@ import java.time.LocalDate;
 
 public class ExpensesStatisticViewModel {
 
+    private Long id;
     private LocalDate date;
     private Integer odometer;
     private String type;
     private BigDecimal price;
+
+    public Long getId() {
+        return id;
+    }
+
+    public ExpensesStatisticViewModel setId(Long id) {
+        this.id = id;
+        return this;
+    }
 
     public LocalDate getDate() {
         return date;

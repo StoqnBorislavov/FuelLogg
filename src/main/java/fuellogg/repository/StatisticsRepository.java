@@ -12,9 +12,9 @@ import java.util.Optional;
 public interface StatisticsRepository extends JpaRepository<Statistic, Long> {
 
 //    @Query("SELECT s FROM Statistic s WHERE s.vehicle.id= 5 ORDER BY s.date DESC ")
-    Optional<Statistic> findTopByVehicle_IdOrderByDateDesc(Long vehicleId);
+    Optional<Statistic> findTopByVehicle_IdOrderByCreatedDesc (Long vehicleId);
 
-    Optional<List<Statistic>> findAllByVehicle_IdOrderByDateDesc(Long vehicleId);
+    Optional<List<Statistic>> findAllByVehicle_IdOrderByCreatedDesc(Long vehicleId);
 
-    Optional<Statistic> findTopByVehicle_IdOrderByDateAsc(Long vehicleId);
+    Optional<Statistic> findTopByVehicle_IdOrderByCreatedAsc(Long vehicleId);
 }

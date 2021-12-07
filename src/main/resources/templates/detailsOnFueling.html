@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="fragments/head::head"></head>
+<body>
+<header th:replace="fragments/navigation::nav"></header>
+<div class="content-wrap">
+    <div class="container justify-content center" th:object="${stat}">
+        <form class="main-form mx-auto col-md-6 d-flex flex-column justify-content-center">
+            <div class="form-group">
+                <label for="odometer" class="text-white font-weight-bold"
+                       th:text="|Odometer: *{odometer}" |>Odometer</label>
+            </div>
+            <div class="form-group">
+                <label for="tripOdometer" class="text-white font-weight-bold" th:text="|Trip odometer: *{trip}" |>Trip
+                    odometer</label>
+            </div>
+            <div class="form-group">
+                <label for="quantity" class="text-white font-weight-bold"
+                       th:text="|Quantity: *{quantity}" |>Quantity</label>
+            </div>
+            <div class="form-group">
+                <label for="fuelSort" class="text-white font-weight-bold" th:text="|Fuel sort: *{fuelSort}" |>Fuel
+                    sort</label>
+            </div>
+            <div class="form-group">
+                <label for="price" class="text-white font-weight-bold" th:text="|Price: *{price}" |>Price</label>
+            </div>
+            <div class="form-group">
+                <label for="price" class="text-white font-weight-bold" th:text="|Route type: *{route}" |>Route</label>
+            </div>
+            <div class="form-group">
+                <label for="fuelingNotes" class="text-white font-weight-bold" th:text="|Fueling notes: *{description}"
+                       |>Fueling
+                    notes</label>
+            </div>
+            <div class="form-group">
+                <label for="fuelConsumption" class="text-white font-weight-bold"
+                       th:text="|Fuel Consumption: *{fuelConsumption}l/100km|">Fueling
+                    notes</label>
+            </div>
+            <div class="row">
+                <div class="col col-md-4">
+                    <div class="d-flex justify-content-center align-items-center">
+                        <div class="btn-group">
+                            <a type="button" class="btn btn-sm btn-outline-secondary"
+                               th:href="@{/home}">Back to homepage</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        </form>
+    </div>
+
+    <footer th:replace="fragments/footer :: footer"></footer>
+</body>
+
+</html>

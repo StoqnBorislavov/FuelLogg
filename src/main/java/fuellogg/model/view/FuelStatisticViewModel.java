@@ -4,13 +4,32 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public class FuelStatisticViewModel {
-
+    private Long vehicleId;
+    private Long id;
     private LocalDate date;
     private Integer trip;
     private BigDecimal fuelConsumption;
     private BigDecimal quantity;
 
     public FuelStatisticViewModel() {
+    }
+
+    public Long getVehicleId() {
+        return vehicleId;
+    }
+
+    public FuelStatisticViewModel setVehicleId(Long vehicleId) {
+        this.vehicleId = vehicleId;
+        return this;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public FuelStatisticViewModel setId(Long id) {
+        this.id = id;
+        return this;
     }
 
     public LocalDate getDate() {

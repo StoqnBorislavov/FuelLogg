@@ -52,15 +52,7 @@ public class AddFuelBindingModel {
         this.vehicleId = vehicleId;
         return this;
     }
-//
-//    public Long getId() {
-//        return id;
-//    }
-//
-//    public AddFuelBindingModel setId(Long id) {
-//        this.id = id;
-//        return this;
-//    }
+
     @NotNull
     public Integer getOdometer() {
         return odometer;
