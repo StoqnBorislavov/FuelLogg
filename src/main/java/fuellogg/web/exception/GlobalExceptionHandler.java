@@ -13,7 +13,7 @@ public class GlobalExceptionHandler {
     public ModelAndView handleAnyError(Exception e) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("errorMessage", e.getMessage());
-        modelAndView.setViewName("page.html");
+        modelAndView.setViewName("error.html");
 //            modelAndView.setStatus(HttpStatus.NOT_FOUND);
         return modelAndView;
     }

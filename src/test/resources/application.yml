@@ -11,6 +11,11 @@ spring:
       format_sql: true
       use_sql_comments: true
     open-in-view: false
+  main:
+    allow-bean-definition-overriding: true
+server:
+  error:
+    path: /error
 cloudinary:
   api-key: 493324265438926
   api-secret:  ${CLOUDINARY_API_SECRET:USKJMuVdmHA8IqQJxfsG6eBCJDQ}

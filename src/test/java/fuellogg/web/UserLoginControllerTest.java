@@ -45,7 +45,6 @@ class UserLoginControllerTest {
                         .with(csrf())
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED))
                 .andExpect(status().is3xxRedirection())
-//                .andExpect(flash().attributeExists("bad_credentials", "username"))
                 .andExpect(redirectedUrl("http://localhost/users/login"));
     }
 

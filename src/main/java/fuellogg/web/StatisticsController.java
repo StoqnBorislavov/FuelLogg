@@ -98,9 +98,15 @@ public class StatisticsController {
         return "redirect:/vehicle/{id}/expenses";
     }
 
-    @GetMapping("/details/{id}")
-    public String detailsView(@PathVariable Long id, Model model) {
+    @GetMapping("/fueling/{id}/details")
+    public String detailsViewForFuelings(@PathVariable Long id, Model model) {
         model.addAttribute("stat", this.statisticsFuelingService.getCurrentStatisticView(id));
         return "details-on-fueling";
+    }
+
+    @GetMapping("/expenses/{id}/details")
+    public String detailsViewForExpenses(@PathVariable Long id, Model model) {
+        model.addAttribute("stat", this.statisticsExpensesService.getCurrentStatisticView(id));
+        return "details-on-expenses";
     }
 }

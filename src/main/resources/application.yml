@@ -31,6 +31,9 @@ spring:
     defer-datasource-initialization: true
   main:
     allow-bean-definition-overriding: true
+server:
+  error:
+    path: /error
 
 #Cloudinary Properties
 cloudinary:

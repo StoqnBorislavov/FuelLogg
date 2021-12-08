@@ -17,7 +17,7 @@
             <span th:text="|Date: *{date}|">Date: 01.11.2021</span>
             <span th:text="|Trip: *{trip} Consumped fuel: *{quantity} l|">Trip: 237,00 km Consumped fuel: 37,63 l</span>
             <span th:text="|Average consumption: *{fuelConsumption} l/100km|">Average consumption: 15,88 l/100km</span>
-            <a type="button" class="btn btn-sm btn-outline-secondary" th:href="@{/statistics/details/{statisticId}(statisticId=*{id})}">Details</a>
+            <a type="button" class="btn btn-sm btn-outline-secondary" th:href="@{/statistics/fueling/{statisticId}/details(statisticId=*{id})}">Details</a>
         </div>
     </div>
 </main>

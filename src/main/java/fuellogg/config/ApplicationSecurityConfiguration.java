@@ -69,6 +69,7 @@ public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapt
                 and()
                 .exceptionHandling();
 
+
     }
 
     @Override

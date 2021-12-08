@@ -1,8 +1,11 @@
 package fuellogg.service.impl;
 
 import fuellogg.model.entity.StatisticExpenses;
+import fuellogg.model.entity.StatisticFueling;
 import fuellogg.model.exception.ObjectNotFoundException;
 import fuellogg.model.service.AddExpensesServiceModel;
+import fuellogg.model.view.DetailsViewOnExpenses;
+import fuellogg.model.view.DetailsViewOnFueling;
 import fuellogg.model.view.ExpensesStatisticViewModel;
 import fuellogg.repository.StatisticsExpensesRepository;
 import fuellogg.service.StatisticsExpensesService;
@@ -10,6 +13,7 @@ import fuellogg.service.VehicleService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -30,7 +34,9 @@ public class StatisticsExpensesServiceImpl implements StatisticsExpensesService 
 
     @Override
     public void addExpenses(AddExpensesServiceModel addExpensesServiceModel) {
-        this.statisticsExpensesRepository.save(this.modelMapper.map(addExpensesServiceModel, StatisticExpenses.class));
+        StatisticExpenses stat = this.modelMapper.map(addExpensesServiceModel, StatisticExpenses.class);
+        stat.setCreated(Instant.now());
+        this.statisticsExpensesRepository.save(stat);
     }
 
     @Override
@@ -40,6 +46,15 @@ public class StatisticsExpensesServiceImpl implements StatisticsExpensesService 
                 .stream()
                 .map(statistic -> modelMapper.map(statistic, ExpensesStatisticViewModel.class))
                 .collect(Collectors.toList());
+
+    }
+
+    @Override
+    public DetailsViewOnExpenses getCurrentStatisticView(Long id) {
+        StatisticExpenses stat = this.statisticsExpensesRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Statistic not found"));
+        DetailsViewOnExpenses dvof = modelMapper.map(stat, DetailsViewOnExpenses.class);
+        dvof.setType(stat.getType().name());
+        return dvof;
 
     }
 }

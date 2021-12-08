@@ -1,6 +1,6 @@
 
 body {
-    background: linear-gradient(rgb(20, 20, 20), rgba(23, 23, 23, 0.01)), url('/images/bg.jpg');
+    background: linear-gradient(rgb(20, 20, 20), rgba(23, 23, 23, 0.01)), url('/images/main-background.jpg');
     background-position: center;
     background-attachment: fixed;
     background-size: cover;
@@ -10,7 +10,7 @@ body {
 }
 
 body.about {
-    background: linear-gradient(rgb(20, 20, 20), rgba(23, 23, 23, 0.01)), url('/images/502-resized.jpg');
+    background: linear-gradient(rgb(20, 20, 20), rgba(23, 23, 23, 0.01)), url('/images/about-background.jpg');
     background-position: center;
     background-attachment: fixed;
     background-size: cover;

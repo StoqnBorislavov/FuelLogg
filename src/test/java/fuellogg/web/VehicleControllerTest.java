@@ -105,18 +105,18 @@ class VehicleControllerTest {
 
     @Test
     void testRenderAddVehicleForm() throws Exception {
-        mockMvc.perform(get("/vehicle/add"))
+        mockMvc.perform(get("/vehicle/add").with(user(myUser)))
                 .andExpect(status().isOk())
-                .andExpect(view().name("addVehicle"));
+                .andExpect(view().name("add-vehicle"));
     }
 
     @Test
-    void testWithErrorsShouldReturnBack() throws Exception {
+    void testWithoutErrorsShouldPass() throws Exception {
         String imageUrl= "";
         try {
-            Path pathToPicture = Paths.get("src/main/resources/static/images/502-resized.jpg");
+            Path pathToPicture = Paths.get("src/main/resources/static/images/about-background.jpg");
             byte[] imageBytes = Files.readAllBytes(pathToPicture);
-            MockMultipartFile file = new MockMultipartFile("502-resized", "502-resized", MediaType.IMAGE_JPEG_VALUE, imageBytes);
+            MockMultipartFile file = new MockMultipartFile("about-background", "about-background", MediaType.IMAGE_JPEG_VALUE, imageBytes);
 
             mockMvc.perform(multipart("/vehicle/add").file("picture", file.getBytes())
                             .param("brandName", "BMW")
@@ -137,6 +137,37 @@ class VehicleControllerTest {
             Assert.assertEquals("1999", vehicle.getYear().toString());
         } finally {
             cloudinaryService.delete(imageUrl);
+        }
+
+    }
+
+    @Test
+    void testWithErrorsShouldReturnBack() throws Exception {
+        String imageUrl= "";
+        try {
+            Path pathToPicture = Paths.get("src/main/resources/static/images/about-background.jpg");
+            byte[] imageBytes = Files.readAllBytes(pathToPicture);
+            MockMultipartFile file = new MockMultipartFile("about-background", "about-background", MediaType.IMAGE_JPEG_VALUE, imageBytes);
+
+            mockMvc.perform(multipart("/vehicle/add").file("picture", file.getBytes())
+                            .param("brandName", "BMW")
+                            .param("modelName", "3 series")
+                            .param("name", "330")
+                            .param("horsePower", "-10")
+                            .param("year", "1100")
+                            .param("engine", EngineEnum.GASOLINE.name())
+                            .param("transmission", TransmissionEnum.MANUAL.name())
+                            .param("odometer", "287000")
+                            .with(user(myUser))
+                            .with(csrf()))
+                    .andExpect(status().is3xxRedirection());
+
+            Assert.assertEquals(imageUrl, "");
+//            Assert.assertEquals("1999", vehicle.getYear().toString());
+        } finally {
+            if(!imageUrl.equals("")) {
+                cloudinaryService.delete(imageUrl);
+            }
         }
 
     }

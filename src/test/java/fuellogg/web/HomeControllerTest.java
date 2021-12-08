@@ -22,7 +22,7 @@ import java.util.Set;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-@WithMockUser(username = "petar")
+@WithMockUser(username = "dimitar")
 class HomeControllerTest {
     @Autowired
     private MockMvc mockMvc;
@@ -44,6 +44,7 @@ class HomeControllerTest {
                 .setPassword("123456")
                 .setUsername("dimitar")
                 .setRoles(Set.of(roleAdmin));
+
     }
 
     @AfterEach
@@ -52,10 +53,16 @@ class HomeControllerTest {
     }
 
     @Test
-    public void getHome() throws Exception {
+    public void getIndex() throws Exception {
         mockMvc.perform(get("/"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("index"));
+    }
+    @Test
+    public void getAbout() throws Exception {
+        mockMvc.perform(get("/about"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("about"));
     }
 
 }

@@ -44,7 +44,7 @@ public class StatisticsFuelingServiceImpl implements StatisticsFuelingService {
         StatisticFueling lastStatisticFueling = this.statisticsFuelingRepository
                 .findTopByVehicle_IdOrderByCreatedDesc(addFuelServiceModel.getVehicleId()).orElse(null);
 
-        modelMapper.map(addFuelServiceModel, newStatisticFueling);
+//        modelMapper.map(addFuelServiceModel, newStatisticFueling);
 
         if(lastStatisticFueling == null){
             newStatisticFueling.setTrip(addFuelServiceModel.getOdometer() - this.vehicleService.findVehicleViewModelById(addFuelServiceModel.getVehicleId()).getOdometer());

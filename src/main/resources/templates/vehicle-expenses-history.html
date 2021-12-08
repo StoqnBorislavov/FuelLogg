@@ -9,7 +9,7 @@
 
 <main>
     <div class="details col-6 bg-dark rounded m-auto" style="height: 95vh; overflow: auto">
-        <h3 class="mySticky bg-gray text-center text-white rounded" th:text="|Fueling history: ${make}|">Expenses
+        <h3 class="mySticky bg-gray text-center text-white rounded" th:text="|Expenses history: ${make}|">Expenses
             history: Vehicle name <a type="button" class="btn btn-sm btn-outline-secondary"
                                      th:href="@{/statistics/addExpenses/{vehicleId}(vehicleId = *{vehicleId})}">Add expenses</a></h3>
 
@@ -18,7 +18,7 @@
             <span th:text="|Date: *{date}|">Date: 01.11.2021</span>
             <span th:text="|Odometer: *{odometer}  Type: *{type} l|">Trip: 237,00 km Consumped fuel: 37,63 l</span>
             <span th:text="|Price: *{price} lv.|">Average consumption: 15,88 l/100km</span>
-            <a type="button" class="btn btn-sm btn-outline-secondary" th:href="@{/statistics/{id}/details(id=*{id})}">Details</a>
+            <a type="button" class="btn btn-sm btn-outline-secondary" th:href="@{/statistics/expenses/{id}/details(id=*{id})}">Details</a>
         </div>
     </div>
 </main>
