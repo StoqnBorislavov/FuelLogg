@@ -5,11 +5,10 @@ import fuellogg.model.view.ExpensesStatisticViewModel;
 import fuellogg.model.view.FuelStatisticViewModel;
 import fuellogg.service.BrandService;
 import fuellogg.service.StatisticsExpensesService;
-import fuellogg.service.StatisticsService;
+import fuellogg.service.StatisticsFuelingService;
 import fuellogg.service.VehicleService;
 import fuellogg.service.impl.MyUser;
 import javassist.NotFoundException;
-import javassist.tools.rmi.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -34,14 +33,14 @@ public class VehicleController {
 
     private final BrandService brandService;
     private final VehicleService vehicleService;
-    private final StatisticsService statisticsService;
+    private final StatisticsFuelingService statisticsFuelingService;
     private final StatisticsExpensesService statisticsExpensesService;
 
     @Autowired
-    public VehicleController(BrandService brandService, VehicleService vehicleService, StatisticsService statisticsService, StatisticsExpensesService statisticsExpensesService) {
+    public VehicleController(BrandService brandService, VehicleService vehicleService, StatisticsFuelingService statisticsFuelingService, StatisticsExpensesService statisticsExpensesService) {
         this.brandService = brandService;
         this.vehicleService = vehicleService;
-        this.statisticsService = statisticsService;
+        this.statisticsFuelingService = statisticsFuelingService;
         this.statisticsExpensesService = statisticsExpensesService;
     }
 
@@ -49,7 +48,7 @@ public class VehicleController {
     @GetMapping("/vehicle/add")
     private String addVehicle(Model model) {
         model.addAttribute("brandsModels", this.brandService.getAllBrands());
-        return "addVehicle";
+        return "add-vehicle";
     }
 
     @PostMapping("/vehicle/add")
@@ -71,10 +70,10 @@ public class VehicleController {
     @PreAuthorize("@vehicleServiceImpl.isOwner(#id, #user.name)")
     @GetMapping("/vehicle/{id}/fueling")
     public String showFueling(@PathVariable Long id, Model model, Principal user) {
-            List<FuelStatisticViewModel> fuelStatistic = this.statisticsService.getAllStatisticsByVehicleId(id);
+            List<FuelStatisticViewModel> fuelStatistic = this.statisticsFuelingService.getAllStatisticsByVehicleId(id);
             model.addAttribute("make", this.vehicleService.findVehicleById(id));
             model.addAttribute("fuelings", fuelStatistic);
-        return "vehicleFueling";
+        return "vehicle-fueling-history";
     }
     @PreAuthorize("@vehicleServiceImpl.isOwner(#id, #user.name)")
     @GetMapping("/vehicle/{id}/expenses")
@@ -82,7 +81,7 @@ public class VehicleController {
             List<ExpensesStatisticViewModel> expenses = this.statisticsExpensesService.getAllStatisticsByVehicleId(id);
             model.addAttribute("make", this.vehicleService.findVehicleById(id));
             model.addAttribute("expenses", expenses);
-        return "vehicleExpenses";
+        return "vehicle-expenses-history";
     }
 
 

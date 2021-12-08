@@ -15,7 +15,7 @@ public class AddFuelServiceModel {
     private String fuelSort;
     private RouteEnum route;
     private BigDecimal price;
-    private String fuelingNotes;
+    private String description;
 
     public AddFuelServiceModel() {
     }
@@ -101,12 +101,12 @@ public class AddFuelServiceModel {
         return this;
     }
 
-    public String getFuelingNotes() {
-        return fuelingNotes;
+    public String getDescription() {
+        return description;
     }
 
-    public AddFuelServiceModel setFuelingNotes(String fuelingNotes) {
-        this.fuelingNotes = fuelingNotes;
+    public AddFuelServiceModel setDescription(String description) {
+        this.description = description;
         return this;
     }
 }

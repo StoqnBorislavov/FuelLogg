@@ -1,8 +1,6 @@
 package fuellogg.repository;
 
-import fuellogg.model.entity.Statistic;
 import fuellogg.model.entity.StatisticExpenses;
-import fuellogg.model.view.ExpensesStatisticViewModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

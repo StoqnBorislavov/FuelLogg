@@ -10,7 +10,7 @@
     <div class="details col-6 bg-dark rounded m-auto" style="height: 95vh; overflow: auto">
         <h3 class="mySticky bg-gray text-center text-white rounded" th:text="|Fueling history: ${make}|"><a
                 type="button" class="btn btn-sm btn-outline-secondary"
-                th:href="@{/statistic/addFuel/{vehicleId}(vehicleId = *{vehicleId})}">Refuel</a></h3>
+                th:href="@{/statistics/addFuel/{vehicleId}(vehicleId = *{vehicleId})}">Refuel</a></h3>
 
         <div th:each="f : ${fuelings}" th:object="${f}"
              class="mt-3 rounded badge-info text-dark bg-light text-lg-center justify-content-evenly border-1">

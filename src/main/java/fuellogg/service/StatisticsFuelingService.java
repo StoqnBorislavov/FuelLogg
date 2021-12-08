@@ -9,7 +9,7 @@ import javassist.tools.rmi.ObjectNotFoundException;
 
 import java.util.List;
 
-public interface StatisticsService {
+public interface StatisticsFuelingService {
 
     void addFuel(AddFuelServiceModel addFuelServiceModel) throws ObjectNotFoundException;
 

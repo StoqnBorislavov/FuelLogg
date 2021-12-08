@@ -7,8 +7,8 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "statistics")
-public class Statistic extends BaseEntity{
+@Table(name = "statistics_fueling")
+public class StatisticFueling extends BaseEntity{
 
     private LocalDate date;
     private Integer odometer;
@@ -20,14 +20,14 @@ public class Statistic extends BaseEntity{
     private String description;
     private Vehicle vehicle;
 
-    public Statistic() {
+    public StatisticFueling() {
     }
     @Column
     public Integer getTrip() {
         return trip;
     }
 
-    public Statistic setTrip(Integer trip) {
+    public StatisticFueling setTrip(Integer trip) {
         this.trip = trip;
         return this;
     }
@@ -36,7 +36,7 @@ public class Statistic extends BaseEntity{
         return fuelConsumption;
     }
 
-    public Statistic setFuelConsumption(BigDecimal fuelConsumption) {
+    public StatisticFueling setFuelConsumption(BigDecimal fuelConsumption) {
         this.fuelConsumption = fuelConsumption;
         return this;
     }
@@ -46,7 +46,7 @@ public class Statistic extends BaseEntity{
         return date;
     }
 
-    public Statistic setDate(LocalDate date) {
+    public StatisticFueling setDate(LocalDate date) {
         this.date = date;
         return this;
     }
@@ -55,7 +55,7 @@ public class Statistic extends BaseEntity{
         return odometer;
     }
 
-    public Statistic setOdometer(Integer odometer) {
+    public StatisticFueling setOdometer(Integer odometer) {
         this.odometer = odometer;
         return this;
     }
@@ -64,7 +64,7 @@ public class Statistic extends BaseEntity{
         return quantity;
     }
 
-    public Statistic setQuantity(BigDecimal quantity) {
+    public StatisticFueling setQuantity(BigDecimal quantity) {
         this.quantity = quantity;
         return this;
     }
@@ -73,7 +73,7 @@ public class Statistic extends BaseEntity{
         return price;
     }
 
-    public Statistic setPrice(BigDecimal price) {
+    public StatisticFueling setPrice(BigDecimal price) {
         this.price = price;
         return this;
     }
@@ -83,7 +83,7 @@ public class Statistic extends BaseEntity{
         return route;
     }
 
-    public Statistic setRoute(RouteEnum route) {
+    public StatisticFueling setRoute(RouteEnum route) {
         this.route = route;
         return this;
     }
@@ -92,7 +92,7 @@ public class Statistic extends BaseEntity{
         return description;
     }
 
-    public Statistic setDescription(String description) {
+    public StatisticFueling setDescription(String description) {
         this.description = description;
         return this;
     }
@@ -101,7 +101,7 @@ public class Statistic extends BaseEntity{
         return vehicle;
     }
 
-    public Statistic setVehicle(Vehicle vehicle) {
+    public StatisticFueling setVehicle(Vehicle vehicle) {
         this.vehicle = vehicle;
         return this;
     }

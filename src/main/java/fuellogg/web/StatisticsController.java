@@ -5,7 +5,7 @@ import fuellogg.model.binding.AddFuelBindingModel;
 import fuellogg.model.service.AddExpensesServiceModel;
 import fuellogg.model.service.AddFuelServiceModel;
 import fuellogg.service.StatisticsExpensesService;
-import fuellogg.service.StatisticsService;
+import fuellogg.service.StatisticsFuelingService;
 import fuellogg.service.VehicleService;
 import javassist.tools.rmi.ObjectNotFoundException;
 import org.modelmapper.ModelMapper;
@@ -26,36 +26,37 @@ import java.security.Principal;
 public class StatisticsController {
 
     private final VehicleService vehicleService;
-    private final StatisticsService statisticsService;
+    private final StatisticsFuelingService statisticsFuelingService;
     private final ModelMapper modelMapper;
     private final StatisticsExpensesService statisticsExpensesService;
 
 
-    public StatisticsController(VehicleService vehicleService, StatisticsService statisticsService, ModelMapper modelMapper, StatisticsExpensesService statisticsExpensesService) {
+    public StatisticsController(VehicleService vehicleService, StatisticsFuelingService statisticsFuelingService, ModelMapper modelMapper, StatisticsExpensesService statisticsExpensesService) {
         this.vehicleService = vehicleService;
-        this.statisticsService = statisticsService;
+        this.statisticsFuelingService = statisticsFuelingService;
         this.modelMapper = modelMapper;
         this.statisticsExpensesService = statisticsExpensesService;
     }
 
     @ModelAttribute
     public AddExpensesBindingModel addExpensesBindingModel(@PathVariable Long id) {
-        return new AddExpensesBindingModel().setVehicleId(id).setOdometer(this.vehicleService.lastOdometer(id));
+        return new AddExpensesBindingModel().setVehicleId(id);
     }
 
 
     @ModelAttribute
     public AddFuelBindingModel addFuelBindingModel(@PathVariable Long id, Principal user) {
-        return new AddFuelBindingModel().setVehicleId(id).setOdometer(this.vehicleService.lastOdometer(id));
+        return new AddFuelBindingModel().setVehicleId(id);
+//        setOdometer(this.vehicleService.lastOdometer(id));
     }
 
-    @PreAuthorize("@statisticsServiceImpl.canUseAddFunction(#id, #user.name)")
+    @PreAuthorize("@statisticsFuelingServiceImpl.canUseAddFunction(#id, #user.name)")
     @GetMapping("/addFuel/{id}")
     public String addFuel(@PathVariable Long id, Principal user) {
         return "refuel";
     }
 
-    @PreAuthorize("@statisticsServiceImpl.canUseAddFunction(#id, #user.name)")
+    @PreAuthorize("@statisticsFuelingServiceImpl.canUseAddFunction(#id, #user.name)")
     @PostMapping("/addFuel/{id}")
     public String addFuelConfirm(@PathVariable Long id,
                                  @Valid AddFuelBindingModel addFuelBindingModel,
@@ -68,18 +69,18 @@ public class StatisticsController {
             return "redirect:/addFuel/{vehicleId}";
         }
 
-        this.statisticsService.addFuel(this.modelMapper.map(addFuelBindingModel, AddFuelServiceModel.class));
+        this.statisticsFuelingService.addFuel(this.modelMapper.map(addFuelBindingModel, AddFuelServiceModel.class));
 
         return "redirect:/vehicle/{id}/fueling";
     }
 
-    @PreAuthorize("@statisticsServiceImpl.canUseAddFunction(#id, #user.name)")
+    @PreAuthorize("@statisticsFuelingServiceImpl.canUseAddFunction(#id, #user.name)")
     @GetMapping("/addExpenses/{id}")
     public String addExpenses(@PathVariable Long id, Principal user) {
-        return "addExpenses";
+        return "add-expenses";
     }
 
-    @PreAuthorize("@statisticsServiceImpl.canUseAddFunction(#id, #user.name)")
+    @PreAuthorize("@statisticsFuelingServiceImpl.canUseAddFunction(#id, #user.name)")
     @PostMapping("/addExpenses/{id}")
     public String addFuelConfirm(@PathVariable Long id,
                                  @Valid AddExpensesBindingModel addExpensesBindingModel,
@@ -99,7 +100,7 @@ public class StatisticsController {
 
     @GetMapping("/details/{id}")
     public String detailsView(@PathVariable Long id, Model model) {
-        model.addAttribute("stat", this.statisticsService.getCurrentStatisticView(id));
-        return "detailsOnFueling";
+        model.addAttribute("stat", this.statisticsFuelingService.getCurrentStatisticView(id));
+        return "details-on-fueling";
     }
 }

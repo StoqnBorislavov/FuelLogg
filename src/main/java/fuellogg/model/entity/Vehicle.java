@@ -17,7 +17,7 @@ public class Vehicle extends BaseEntity {
         private TransmissionEnum transmission;
         private Integer odometer;
         private Brand brand;
-        private List<Statistic> statistics;
+        private List<StatisticFueling> statisticFuelings;
         private User owner;
 
         public Vehicle() {
@@ -98,12 +98,12 @@ public class Vehicle extends BaseEntity {
                 return this;
         }
         @OneToMany(mappedBy = "vehicle")
-        public List<Statistic> getStatistics() {
-                return statistics;
+        public List<StatisticFueling> getStatistics() {
+                return statisticFuelings;
         }
 
-        public Vehicle setStatistics(List<Statistic> statistics) {
-                this.statistics = statistics;
+        public Vehicle setStatistics(List<StatisticFueling> statisticFuelings) {
+                this.statisticFuelings = statisticFuelings;
                 return this;
         }
 
