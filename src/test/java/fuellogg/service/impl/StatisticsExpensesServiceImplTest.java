@@ -1,18 +1,15 @@
 package fuellogg.service.impl;
 
 import fuellogg.model.entity.*;
-import fuellogg.model.enums.EngineEnum;
-import fuellogg.model.enums.RouteEnum;
-import fuellogg.model.enums.TransmissionEnum;
-import fuellogg.model.enums.UserRoleEnum;
+import fuellogg.model.enums.*;
 import fuellogg.model.service.AddFuelServiceModel;
+import fuellogg.model.view.DetailsViewOnExpenses;
 import fuellogg.model.view.DetailsViewOnFueling;
-import fuellogg.model.view.FuelStatisticViewModel;
+import fuellogg.repository.StatisticsExpensesRepository;
 import fuellogg.repository.StatisticsFuelingRepository;
 import fuellogg.repository.VehicleRepository;
+import fuellogg.service.StatisticsExpensesService;
 import fuellogg.service.VehicleService;
-import javassist.tools.rmi.ObjectNotFoundException;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -20,27 +17,25 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.mockito.stubbing.OngoingStubbing;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
-class StatisticsFuelingServiceImplTest {
+class StatisticsExpensesServiceImplTest {
 
     private Vehicle testVehicle;
     private User testUser;
     private UserRole adminRole;
     private UserRole userRole;
     private AddFuelServiceModel fuelServiceModel;
-    private StatisticFueling statisticFueling;
+    private StatisticExpenses statisticExpenses;
 
     @Mock
     private ModelMapper mockModelMapper;
@@ -50,16 +45,16 @@ class StatisticsFuelingServiceImplTest {
     @Mock
     private VehicleService mockVehicleService;
     @Mock
-    private StatisticsFuelingRepository mockStatisticsFuelingRepository;
+    private StatisticsExpensesRepository mockStatisticsExpensesRepository;
 
-    private StatisticsFuelingServiceImpl serviceToTest;
+    private StatisticsExpensesServiceImpl serviceToTest;
 
     @BeforeEach
     void init() {
 
 
         //ARRANGE
-        serviceToTest = new StatisticsFuelingServiceImpl(mockStatisticsFuelingRepository, mockModelMapper, mockVehicleService, mockVehicleRepository);
+        serviceToTest = new StatisticsExpensesServiceImpl(mockStatisticsExpensesRepository, mockModelMapper, mockVehicleService);
 
 
         adminRole = new UserRole();
@@ -101,45 +96,34 @@ class StatisticsFuelingServiceImplTest {
                 .setRoute(RouteEnum.COUNTRY_ROADS)
                 .setVehicleId(testVehicle.getId())
                 .setDate(LocalDate.now());
-        statisticFueling = new StatisticFueling();
-        statisticFueling.setCreated(Instant.now());
-        statisticFueling
+        statisticExpenses= new StatisticExpenses();
+        statisticExpenses.setCreated(Instant.now());
+        statisticExpenses
                 .setVehicle(testVehicle)
                 .setOdometer(285000)
                 .setDescription("Best thing")
-                .setFuelConsumption(new BigDecimal(12.58))
                 .setDate(LocalDate.now())
-                .setTrip(200)
-                .setQuantity(new BigDecimal(25.20))
-                .setPrice(new BigDecimal(52.32))
-                .setRoute(RouteEnum.HIGHWAY);
+                .setType(StatisticTypeEnum.ACCESSORIES);
 
     }
 
-
-
-
     @Test
-    void testGetStatisticFuelingShouldReturnStatistic(){
+    void testGetStatisticExpensesShouldReturnStatistic(){
         // Arrange
-        Mockito.when(mockStatisticsFuelingRepository.findById(testVehicle.getId())).
-                thenReturn(Optional.of(statisticFueling));
-        Mockito.when(mockModelMapper.map(statisticFueling, DetailsViewOnFueling.class))
-                .thenReturn(new DetailsViewOnFueling().setFuelSort(statisticFueling.getVehicle().getEngine().name())
-                        .setDate(statisticFueling.getDate()).setOdometer(statisticFueling.getOdometer())
-                        .setFuelConsumption(statisticFueling.getFuelConsumption()).setPrice(statisticFueling.getPrice())
-                        .setDescription(statisticFueling.getDescription()).setQuantity(statisticFueling.getQuantity())
-                        .setRoute(statisticFueling.getRoute().name()).setTrip(statisticFueling.getTrip())
-                        .setVehicle(statisticFueling.getVehicle().getName()));
+        Mockito.when(mockStatisticsExpensesRepository.findById(testVehicle.getId())).
+                thenReturn(Optional.of(statisticExpenses));
+        Mockito.when(mockModelMapper.map(statisticExpenses, DetailsViewOnExpenses.class))
+                .thenReturn(new DetailsViewOnExpenses()
+                        .setDate(statisticExpenses.getDate()).setOdometer(statisticExpenses.getOdometer())
+                        .setPrice(statisticExpenses.getPrice()).setType(statisticExpenses.getType().name())
+                        .setDescription(statisticExpenses.getDescription()));
 
 
         // Act
-        DetailsViewOnFueling currentStatisticView = serviceToTest.getCurrentStatisticView(testVehicle.getId());
+        DetailsViewOnExpenses currentStatisticView = serviceToTest.getCurrentStatisticView(testVehicle.getId());
 
         // Assert
 
-        Assertions.assertEquals(currentStatisticView.getOdometer(), statisticFueling.getOdometer());
-
+        Assertions.assertEquals(currentStatisticView.getOdometer(), statisticExpenses.getOdometer());
     }
-
 }
