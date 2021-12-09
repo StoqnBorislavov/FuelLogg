@@ -22,7 +22,6 @@ public class Scheduler {
 
 
     @Scheduled(cron = "0 0 0 * * *")
-//    @Scheduled(cron = "30 * * * * *")
     public void enableUsers() {
         LOGGER.info("Clean up is engaged!");
         statsService.cleanUpDb();

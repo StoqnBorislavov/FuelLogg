@@ -3,6 +3,7 @@ package fuellogg.service.impl;
 import com.cloudinary.Cloudinary;
 import fuellogg.service.CloudinaryImage;
 import fuellogg.service.CloudinaryService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -18,6 +19,7 @@ public class CloudinaryServiceImpl implements CloudinaryService {
 
     private final Cloudinary cloudinary;
 
+    @Autowired
     public CloudinaryServiceImpl(Cloudinary cloudinary) {
         this.cloudinary = cloudinary;
     }

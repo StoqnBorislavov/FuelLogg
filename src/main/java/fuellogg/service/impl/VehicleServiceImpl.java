@@ -97,7 +97,7 @@ public class VehicleServiceImpl implements VehicleService {
 
     @Override
     public boolean isOwner(Long id, String username) {
-        Optional<Vehicle> vehicle = vehicleRepository.findById(id);
+        Optional<Vehicle> vehicle = this.vehicleRepository.findById(id);
         if(vehicle.isEmpty()){
             return false;
         }
@@ -106,8 +106,7 @@ public class VehicleServiceImpl implements VehicleService {
 
     @Override
     public VehicleViewModel findVehicleViewModelById(Long id) throws ObjectNotFoundException {
-        VehicleViewModel vehicleViewModel = modelMapper.map(this.vehicleRepository.findById(id).orElseThrow(()->new ObjectNotFoundException("Vehicle not found!")), VehicleViewModel.class);
-        return vehicleViewModel;
+        return modelMapper.map(this.vehicleRepository.findById(id).orElseThrow(()->new ObjectNotFoundException("Vehicle not found!")), VehicleViewModel.class);
     }
 
 
@@ -118,7 +117,9 @@ public class VehicleServiceImpl implements VehicleService {
                 .setOdometer(calculateTheMileage(vehicle))
                 .setAverageConsumption(calculateAverageConsumption(vehicle))
                 .setBrand(vehicle.getBrand().getName())
-                .setName(vehicle.getName());
+                .setName(vehicle.getName())
+                .setLastOdometer(this.vehicleRepository.findById(vehicle.getId()).map(Vehicle::getOdometer)
+                        .orElseThrow(() -> new fuellogg.model.exception.ObjectNotFoundException("Vehicle not found!")));
     }
 
     private Integer calculateTheMileage(Vehicle vehicle) {
@@ -141,7 +142,7 @@ public class VehicleServiceImpl implements VehicleService {
         if(latestFueling == null && mostRecentFueling == null){
             return new BigDecimal(0);
         } else if(latestFueling.equals(mostRecentFueling)){
-            return this.statisticsFuelingRepository.findTopByVehicle_IdOrderByCreatedDesc(vehicle.getId()).get().getFuelConsumption();
+            return this.statisticsFuelingRepository.findTopByVehicle_IdOrderByCreatedDesc(vehicle.getId()).orElseThrow(() -> new fuellogg.model.exception.ObjectNotFoundException("Statistics not found!")).getFuelConsumption();
         } else if(latestFueling != null && mostRecentFueling != null) {
             for (StatisticFueling statisticFueling : statisticFuelings) {
                 neededFuel = neededFuel.add(statisticFueling.getQuantity());

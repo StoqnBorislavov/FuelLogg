@@ -15,13 +15,15 @@ public class UserRegisterBindingModel {
 
     private String confirmPassword;
 
+    private String email;
+
     @UniqueUserName
     private String username;
 
-    private String email;
 
     public UserRegisterBindingModel() {
     }
+
     @NotNull
     @Size(min=5)
     public String getFullName() {

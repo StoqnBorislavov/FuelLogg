@@ -34,7 +34,6 @@ public class UserServiceImpl implements UserService {
         this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
         this.userRoleRepository = userRoleRepository;
-
         this.fuelLoggUserService = fuelLoggUserService;
     }
 
@@ -57,7 +56,7 @@ public class UserServiceImpl implements UserService {
                     setPassword(passwordEncoder.encode("1234")).
                     setRoles(Set.of(adminRole, userRole));
 
-            userRepository.save(admin);
+            this.userRepository.save(admin);
 
             User user = new User();
             user
@@ -67,7 +66,7 @@ public class UserServiceImpl implements UserService {
                     setPassword(passwordEncoder.encode("1234")).
                     setRoles(Set.of(userRole));
 
-            userRepository.save(user);
+            this.userRepository.save(user);
         }
     }
     public void initializeUsersRoles() {

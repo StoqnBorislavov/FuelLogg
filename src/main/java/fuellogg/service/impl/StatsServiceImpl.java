@@ -4,6 +4,7 @@ import fuellogg.model.entity.AdminStat;
 import fuellogg.model.view.StatisticView;
 import fuellogg.repository.AdminStatRepository;
 import fuellogg.service.StatsService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -26,6 +27,7 @@ public class StatsServiceImpl implements StatsService {
     private int anonymousRequest;
     private int authRequest;
 
+    @Autowired
     public StatsServiceImpl( AdminStatRepository adminStatRepository) {
         this.adminStatRepository = adminStatRepository;
     }

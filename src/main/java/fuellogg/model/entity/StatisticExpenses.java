@@ -56,9 +56,7 @@ public class StatisticExpenses extends BaseEntity {
         return this;
     }
     @Column(nullable = false)
-    //TODO
-
-//    @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.STRING)
     public StatisticTypeEnum getType() {
         return type;
     }

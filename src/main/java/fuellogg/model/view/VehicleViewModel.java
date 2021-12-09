@@ -11,8 +11,18 @@ public class VehicleViewModel {
     private Double fuelConsumption;
     private BigDecimal averageConsumption;
     private String url;
+    private Integer lastOdometer;
 
     public VehicleViewModel() {
+    }
+
+    public Integer getLastOdometer() {
+        return lastOdometer;
+    }
+
+    public VehicleViewModel setLastOdometer(Integer lastOdometer) {
+        this.lastOdometer = lastOdometer;
+        return this;
     }
 
     public Long getId() {

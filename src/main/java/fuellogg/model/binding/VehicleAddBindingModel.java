@@ -2,6 +2,7 @@ package fuellogg.model.binding;
 
 import fuellogg.model.enums.EngineEnum;
 import fuellogg.model.enums.TransmissionEnum;
+import org.springframework.lang.Nullable;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.Min;
@@ -24,6 +25,7 @@ public class VehicleAddBindingModel {
 
     public VehicleAddBindingModel() {
     }
+
     @NotNull
     public String getBrandName() {
         return brandName;
@@ -42,7 +44,7 @@ public class VehicleAddBindingModel {
         this.modelName = modelName;
         return this;
     }
-
+    @Nullable
     public MultipartFile getPicture() {
         return picture;
     }
@@ -109,13 +111,4 @@ public class VehicleAddBindingModel {
         this.odometer = odometer;
         return this;
     }
-//    @NotNull
-//    public Brand getBrand() {
-//        return brand;
-//    }
-//
-//    public VehicleAddBindingModel setBrand(Brand brand) {
-//        this.brand = brand;
-//        return this;
-//    }
 }

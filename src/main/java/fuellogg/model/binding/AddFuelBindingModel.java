@@ -2,6 +2,7 @@ package fuellogg.model.binding;
 
 import fuellogg.model.enums.RouteEnum;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.lang.Nullable;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
@@ -63,6 +64,7 @@ public class AddFuelBindingModel {
         return this;
     }
 
+    @Nullable
     public Integer getTripOdometer() {
         return tripOdometer;
     }
@@ -99,7 +101,7 @@ public class AddFuelBindingModel {
         this.price = price;
         return this;
     }
-
+    @Nullable
     public String getDescription() {
         return description;
     }

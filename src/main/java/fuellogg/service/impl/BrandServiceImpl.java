@@ -29,7 +29,7 @@ public class BrandServiceImpl implements BrandService {
 
     @Override
     public void initializeBrands() {
-        if(brandRepository.count() == 0) {
+        if(this.brandRepository.count() == 0) {
             Brand bmw = new Brand();
             bmw.setName("BMW");
             Brand mercedes = new Brand();
@@ -43,7 +43,7 @@ public class BrandServiceImpl implements BrandService {
 
     @Override
     public List<BrandViewModel> getAllBrands() {
-        return brandRepository.findAll()
+        return this.brandRepository.findAll()
                 .stream()
                 .map(brand -> {
                     BrandViewModel brandViewModel = new BrandViewModel().
@@ -61,6 +61,6 @@ public class BrandServiceImpl implements BrandService {
     }
 
     private ModelViewModel map(Model modelEntity) {
-        return modelMapper.map(modelEntity, ModelViewModel.class);
+        return this.modelMapper.map(modelEntity, ModelViewModel.class);
     }
 }

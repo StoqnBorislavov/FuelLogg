@@ -2,8 +2,10 @@ package fuellogg.model.binding;
 
 import fuellogg.model.enums.StatisticTypeEnum;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.lang.Nullable;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
 import javax.validation.constraints.Positive;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -17,6 +19,8 @@ public class AddExpensesBindingModel {
     private String description;
     private StatisticTypeEnum type;
 
+
+    @Nullable
     public Long getId() {
         return id;
     }
@@ -63,7 +67,7 @@ public class AddExpensesBindingModel {
         this.price = price;
         return this;
     }
-
+    @Nullable
     public String getDescription() {
         return description;
     }

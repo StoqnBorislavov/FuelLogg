@@ -11,6 +11,7 @@ import fuellogg.repository.VehicleRepository;
 import fuellogg.service.StatisticsFuelingService;
 import fuellogg.service.VehicleService;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,6 +30,7 @@ public class StatisticsFuelingServiceImpl implements StatisticsFuelingService {
     private final VehicleService vehicleService;
     private final VehicleRepository vehicleRepository;
 
+    @Autowired
     public StatisticsFuelingServiceImpl(StatisticsFuelingRepository statisticsFuelingRepository, ModelMapper modelMapper, VehicleService vehicleService, VehicleRepository vehicleRepository) {
         this.statisticsFuelingRepository = statisticsFuelingRepository;
         this.modelMapper = modelMapper;
@@ -44,8 +46,7 @@ public class StatisticsFuelingServiceImpl implements StatisticsFuelingService {
         StatisticFueling lastStatisticFueling = this.statisticsFuelingRepository
                 .findTopByVehicle_IdOrderByCreatedDesc(addFuelServiceModel.getVehicleId()).orElse(null);
 
-//        modelMapper.map(addFuelServiceModel, newStatisticFueling);
-
+        this.modelMapper.map(addFuelServiceModel, newStatisticFueling);
         if(lastStatisticFueling == null){
             newStatisticFueling.setTrip(addFuelServiceModel.getOdometer() - this.vehicleService.findVehicleViewModelById(addFuelServiceModel.getVehicleId()).getOdometer());
             newStatisticFueling.setFuelConsumption(checkFuelConsumption(addFuelServiceModel, new StatisticFueling().setOdometer(this.vehicleService.findVehicleViewModelById(addFuelServiceModel.getVehicleId()).getOdometer())));
@@ -54,7 +55,6 @@ public class StatisticsFuelingServiceImpl implements StatisticsFuelingService {
             newStatisticFueling.setFuelConsumption(checkFuelConsumption(addFuelServiceModel, lastStatisticFueling));
         }
         newStatisticFueling.setCreated(Instant.now());
-//        newStatisticFueling.setDescription(addFuelServiceModel.getFuelingNotes());
         newStatisticFueling.setId(null);
         this.statisticsFuelingRepository.save(newStatisticFueling);
         this.vehicleService.updateVehicle(addFuelServiceModel.getVehicleId(), addFuelServiceModel.getOdometer());
@@ -72,7 +72,7 @@ public class StatisticsFuelingServiceImpl implements StatisticsFuelingService {
 
     @Override
     public boolean canUseAddFunction(Long id, String username) {
-        Optional<Vehicle> vehicle = vehicleRepository.findById(id);
+        Optional<Vehicle> vehicle = this.vehicleRepository.findById(id);
         if(vehicle.isEmpty()){
             return false;
         }
@@ -83,7 +83,7 @@ public class StatisticsFuelingServiceImpl implements StatisticsFuelingService {
     @Override
     public DetailsViewOnFueling getCurrentStatisticView(Long id) {
         StatisticFueling stat = this.statisticsFuelingRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Statistic not found"));
-        DetailsViewOnFueling dvof = modelMapper.map(stat, DetailsViewOnFueling.class);
+        DetailsViewOnFueling dvof = this.modelMapper.map(stat, DetailsViewOnFueling.class);
         dvof.setFuelSort(stat.getVehicle().getEngine().name());
         return dvof;
     }
