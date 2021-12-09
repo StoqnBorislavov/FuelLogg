@@ -9,7 +9,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import springfox.documentation.RequestHandler;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;

@@ -1,11 +1,9 @@
 package fuellogg.service.impl;
 
-import fuellogg.model.Consts;
 import fuellogg.model.entity.AdminStat;
 import fuellogg.model.view.StatisticView;
 import fuellogg.repository.AdminStatRepository;
 import fuellogg.service.StatsService;
-import fuellogg.web.interceptor.LogInterceptor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,6 +17,7 @@ import java.time.ZoneOffset;
 
 @Service
 public class StatsServiceImpl implements StatsService {
+    public static final Long MILLISECONDS_FROM_24_HOUR = 86400000L;
 
     private final AdminStatRepository adminStatRepository;
 
@@ -65,7 +64,7 @@ public class StatsServiceImpl implements StatsService {
 
     @Override
     public StatisticView getStatistic() {
-        Instant newInst = Instant.now().minusMillis(Consts.MILLISECONDS_FROM_24_HOUR);;
+        Instant newInst = Instant.now().minusMillis(MILLISECONDS_FROM_24_HOUR);
         AdminStat adminStat = this.adminStatRepository.findTopByCreatedAfterOrderByLogTimeDesc(newInst)
                 .orElseThrow(()-> new UnsupportedOperationException("There is no log times"));
 
