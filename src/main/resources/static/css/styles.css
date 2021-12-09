@@ -45,14 +45,6 @@ nav {
     font-family: Avant Garde, Avantgarde, Century Gothic, CenturyGothic, AppleGothic, sans-serif;
 }
 
-.btn-secondary {
-    color: oldlace;
-    background-color: #333439;
-    border-color: #333439;
-    font-family: Avant Garde, Avantgarde, Century Gothic, CenturyGothic, AppleGothic, sans-serif;
-    margin-top: 10px;
-}
-
 form.main-form {
     /* background-image: linear-gradient(to bottom right, rgba(70, 70, 70, 0.8), rgba(10, 10, 10, 0.8)); */
     background-color: black;
@@ -171,10 +163,6 @@ h3 {
 
 }
 
-/*.row{*/
-/*    margin-right: calc(var(-bs-gutter-x) * 0.001) !important;*/
-/*}*/
-
 .col-lg-3 {
     margin-left: 10px;
 }
@@ -189,10 +177,6 @@ h3 {
 
 .text-center {
     text-align: center !important;
-    font-family: Avant Garde, Avantgarde, Century Gothic, CenturyGothic, AppleGothic, sans-serif;
-}
-
-.btn-group, .btn-group-vertical {
     font-family: Avant Garde, Avantgarde, Century Gothic, CenturyGothic, AppleGothic, sans-serif;
 }
 
@@ -228,31 +212,10 @@ button, select {
     text-align: center;
 }
 
-.bg-blur {
-    background-color: rgb(52, 58, 64);
-    color: oldlace;
-    font-weight: bold;
-    font-family: Avant Garde, Avantgarde, Century Gothic, CenturyGothic, AppleGothic, sans-serif;
-    border: 2px solid oldlace;
-    border-radius: 20px;
-    z-index: 2;
-    width: 100%;
-    padding: 20px;
-    text-align: center;
-
-}
-
 .badge {
     font-family: 'Times New Roman', Times, serif;
     font-size: 35px;
     color: oldlace;
-}
-
-.page-container {
-    position: relative;
-    min-height: 50vh;
-    margin-top: 50px;
-
 }
 
 small {
@@ -271,43 +234,9 @@ label {
     padding-bottom: 5rem; /* Footer height */
 }
 
-.task-card {
-    color: rgb(23, 23, 23); /* Black w/opacity/see-through */
-    background-color: dimgrey;
-    font-weight: bold;
-    font-family: 'Times New Roman', Times, serif;
-    border: 3px solid #959595;
-    border-radius: 20px;
-    z-index: 2;
-    width: 100%;
-    padding: 20px;
-    font-size: 20px;
-    margin-bottom: 10px;
-
-
-}
-
 label {
     color: black;
     text-align: center;
-
-}
-
-.classifications {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 100px;
-    flex-grow: 0;
-    font-size: 17px;
-    line-height: 20px;
-    font-weight: 500;
-    letter-spacing: normal;
-    border-radius: 5px;
-    padding-left: 7px;
-    padding-right: 7px;
-    color: white;
-
 }
 
 h5 {
