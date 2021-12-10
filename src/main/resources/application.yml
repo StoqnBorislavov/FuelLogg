@@ -1,9 +1,9 @@
 spring:
   datasource:
     driverClassName: com.mysql.cj.jdbc.Driver
-    url: "jdbc:mysql://localhost:3306/fuel_logg?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true&serverTimezone=UTC"
-    username: root
-    password:
+    url: ${JDBC_DATABASE_URL:"jdbc:mysql://localhost:3306/fuel_logg?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true&serverTimezone=UTC"}
+    username: ${JDBC_DATABASE_USERNAME:root}
+    password: ${JDBC_DATABASE_PASSWORD:}
 #For uploading photos with url!
   servlet:
     multipart:
@@ -18,10 +18,16 @@ spring:
   #      mode: always
   jpa:
 # Choose either MySQL 8 or MySQL 5 below
+
 # For MySQL 8
-    database-platform: org.hibernate.dialect.MySQL8Dialect
+#    database-platform: org.hibernate.dialect.MySQL8Dialect
+
 #For MySQL 5
 #database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+
+# For Postgre dialect
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+
     hibernate:
       ddl-auto: update
     open-in-view: false
@@ -34,6 +40,8 @@ spring:
 server:
   error:
     path: /error
+  port: ${PORT:8080}
+
 
 #Cloudinary Properties
 cloudinary:
