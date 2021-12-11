@@ -12,7 +12,6 @@ public class AddFuelServiceModel {
     private Integer odometer;
     private Integer tripOdometer;
     private BigDecimal quantity;
-    private String fuelSort;
     private RouteEnum route;
     private BigDecimal price;
     private String description;
@@ -83,14 +82,7 @@ public class AddFuelServiceModel {
         return this;
     }
 
-    public String getFuelSort() {
-        return fuelSort;
-    }
 
-    public AddFuelServiceModel setFuelSort(String fuelSort) {
-        this.fuelSort = fuelSort;
-        return this;
-    }
 
     public BigDecimal getPrice() {
         return price;

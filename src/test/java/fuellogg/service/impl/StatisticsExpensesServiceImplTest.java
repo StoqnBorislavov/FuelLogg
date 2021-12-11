@@ -87,7 +87,6 @@ class StatisticsExpensesServiceImplTest {
         testVehicle.setId(1L);
 
         fuelServiceModel = new AddFuelServiceModel()
-                .setFuelSort("GASOLINE")
                 .setOdometer(285200)
                 .setTripOdometer(200)
                 .setDescription("Good ride")

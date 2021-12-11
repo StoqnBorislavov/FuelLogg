@@ -41,16 +41,6 @@
                     <small class="invalid-feedback text-danger">Quantity must be positive number.</small>
                 </div>
                 <div class="form-group">
-                    <label for="fuelSort"  class="text-white font-weight-bold">Fuel sort</label>
-                    <select th:field="*{fuelSort}"
-                            th:errorclass="is-invalid"
-                            id="fuelSort" class="custom-select">
-                        <option value="" selected>Select fuel</option>
-                        <option th:each="f :${T(fuellogg.model.enums.EngineEnum).values()}"  th:value="${f}" th:text="${f}"></option>
-                    </select>
-                    <small class="invalid-feedback text-danger">Must select fuel sort!</small>
-                </div>
-                <div class="form-group">
                     <label for="price" class="text-white font-weight-bold">Price</label>
                     <input th:field="*{price}" th:errorclass="is-invalid" type="number" class="form-control" id="fuelSort" name="fuelSort" required
                            min="0" value="0" step="0.01" placeholder="Price">

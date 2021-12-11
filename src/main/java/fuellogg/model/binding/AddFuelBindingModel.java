@@ -17,7 +17,6 @@ public class AddFuelBindingModel {
     private Integer odometer;
     private Integer tripOdometer;
     private BigDecimal quantity;
-    private String fuelSort;
     private RouteEnum route;
     private BigDecimal price;
     private String description;
@@ -82,15 +81,7 @@ public class AddFuelBindingModel {
         this.quantity = quantity;
         return this;
     }
-    @NotNull
-    public String getFuelSort() {
-        return fuelSort;
-    }
 
-    public AddFuelBindingModel setFuelSort(String fuelSort) {
-        this.fuelSort = fuelSort;
-        return this;
-    }
     @NotNull
     @Positive
     public BigDecimal getPrice() {

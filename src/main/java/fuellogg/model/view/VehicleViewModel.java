@@ -1,5 +1,7 @@
 package fuellogg.model.view;
 
+import fuellogg.model.enums.EngineEnum;
+
 import java.math.BigDecimal;
 
 public class VehicleViewModel {
@@ -8,12 +10,22 @@ public class VehicleViewModel {
     private String brand;
     private String name;
     private Integer odometer;
+    private EngineEnum engineType;
     private Double fuelConsumption;
     private BigDecimal averageConsumption;
     private String url;
     private Integer lastOdometer;
 
     public VehicleViewModel() {
+    }
+
+    public EngineEnum getEngineType() {
+        return engineType;
+    }
+
+    public VehicleViewModel setEngineType(EngineEnum engineType) {
+        this.engineType = engineType;
+        return this;
     }
 
     public Integer getLastOdometer() {

@@ -16,7 +16,7 @@
     </div>
     <br>
     <br>
-    <div class="row margin-left: 20px margin-bottom: 10px d-flex">
+    <div class="row margin-left: 20px margin-bottom: 20px d-flex">
         <div th:each="m : ${myVehicles}" th:object="${m}" class="col-lg-3 col-md-4 col-sm-6 col-10">
             <div class="vechicle card sm-3 md-3 mb-4 box-shadow">
                 <img th:src="*{url}" src="IMG_1433.jpg" class="card-img-top"
@@ -26,7 +26,9 @@
                     <div class="text-center">
                         <p class="card-text border-bottom " th:text="|Make and model: *{brand} *{name}|">BMW 330
                             ci</p>
-                        <p class="card-text border-bottom " th:text="|Kilometers: *{odometer}|">Kilometers
+                        <p class="card-text border-bottom " th:text="|Kilometers: *{odometer} km|">Kilometers
+                        </p>
+                        <p class="card-text border-bottom " th:text="|Fuel type: *{engineType.name()}|">Kilometers
                         </p>
 
                         <p class="card-text border-bottom "

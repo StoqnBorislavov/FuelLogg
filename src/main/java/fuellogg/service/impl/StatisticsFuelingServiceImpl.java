@@ -84,7 +84,6 @@ public class StatisticsFuelingServiceImpl implements StatisticsFuelingService {
     public DetailsViewOnFueling getCurrentStatisticView(Long id) {
         StatisticFueling stat = this.statisticsFuelingRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Statistic not found"));
         DetailsViewOnFueling dvof = this.modelMapper.map(stat, DetailsViewOnFueling.class);
-        dvof.setFuelSort(stat.getVehicle().getEngine().name());
         dvof.setVehicleId(stat.getVehicle().getId());
         return dvof;
     }

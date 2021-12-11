@@ -118,6 +118,7 @@ public class VehicleServiceImpl implements VehicleService {
                 .setAverageConsumption(calculateAverageConsumption(vehicle))
                 .setBrand(vehicle.getBrand().getName())
                 .setName(vehicle.getName())
+                .setEngineType(vehicle.getEngine())
                 .setLastOdometer(this.vehicleRepository.findById(vehicle.getId()).map(Vehicle::getOdometer)
                         .orElseThrow(() -> new fuellogg.model.exception.ObjectNotFoundException("Vehicle not found!")));
     }
