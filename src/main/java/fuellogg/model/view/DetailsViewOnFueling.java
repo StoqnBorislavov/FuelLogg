@@ -18,6 +18,16 @@ public class DetailsViewOnFueling {
     private String route;
     private String description;
     private String vehicle;
+    private Long vehicleId;
+
+    public Long getVehicleId() {
+        return vehicleId;
+    }
+
+    public DetailsViewOnFueling setVehicleId(Long vehicleId) {
+        this.vehicleId = vehicleId;
+        return this;
+    }
 
     public String getFuelSort() {
         return fuelSort;

@@ -54,6 +54,7 @@ public class StatisticsExpensesServiceImpl implements StatisticsExpensesService 
         StatisticExpenses stat = this.statisticsExpensesRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Statistic not found"));
         DetailsViewOnExpenses dvof = this.modelMapper.map(stat, DetailsViewOnExpenses.class);
         dvof.setType(stat.getType().name());
+        dvof.setVehicleId(stat.getVehicle().getId());
         return dvof;
 
     }

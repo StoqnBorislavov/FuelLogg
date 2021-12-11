@@ -19,6 +19,17 @@
             <span th:text="|Average consumption: *{fuelConsumption} l/100km|">Average consumption: 15,88 l/100km</span>
             <a type="button" class="btn btn-sm btn-outline-secondary" th:href="@{/statistics/fueling/{statisticId}/details(statisticId=*{id})}">Details</a>
         </div>
+        <br>
+        <div class="row">
+            <div class="col col-md-4">
+                <div class="d-flex justify-content-center align-items-center">
+                    <div class="btn-group">
+                        <a type="button" class="btn btn-sm btn-outline-secondary"
+                           th:href="@{/home}">Back to home</a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </main>
 <footer th:replace="fragments/footer :: footer"></footer>

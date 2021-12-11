@@ -9,6 +9,16 @@ public class DetailsViewOnExpenses {
     private BigDecimal price;
     private String description;
     private String type;
+    private Long vehicleId;
+
+    public Long getVehicleId() {
+        return vehicleId;
+    }
+
+    public DetailsViewOnExpenses setVehicleId(Long vehicleId) {
+        this.vehicleId = vehicleId;
+        return this;
+    }
 
     public LocalDate getDate() {
         return date;

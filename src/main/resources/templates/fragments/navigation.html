@@ -36,11 +36,11 @@
                 <li class="nav-item dropdown" sec:authorize="isAuthenticated()">
                     <a class="nav-link dropdown-toggle" href="/" id="navbarDropdown" role="button"
                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Profile
+                        My Profile
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-<!--                        <a class="dropdown-item" th:href="@{/users/units}">Change units</a>-->
-<!--                        <a class="dropdown-item" th:href="/">Logout</a>-->
+                        <a class="dropdown-item" th:href="@{/users/changePassword}">Change password</a>
+                        <a class="dropdown-item" th:href="@{/home}">My vehicles</a>
                         <form th:action="@{/users/logout}" th:method="post">
 <!--                            <a class="dropdown-item" href="/">Logout</a>-->
                             <input class="dropdown-item" type="submit" value="Logout">

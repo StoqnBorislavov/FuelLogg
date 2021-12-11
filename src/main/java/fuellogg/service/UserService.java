@@ -13,4 +13,6 @@ public interface UserService {
     void registerAndLoginUser(UserRegisterServiceModel userRegisterServiceModel);
 
     boolean isUsernameFree(String username);
+
+    void changePassword(String newPassword, String username);
 }

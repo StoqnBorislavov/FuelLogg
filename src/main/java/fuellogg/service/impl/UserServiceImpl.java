@@ -43,7 +43,7 @@ public class UserServiceImpl implements UserService {
         this.initializeUsers();
     }
 
-    public void initializeUsers(){
+    public void initializeUsers() {
         if (this.userRepository.count() == 0) {
             UserRole adminRole = this.userRoleRepository.findByRole(UserRoleEnum.ADMIN);
             UserRole userRole = this.userRoleRepository.findByRole(UserRoleEnum.USER);
@@ -69,8 +69,9 @@ public class UserServiceImpl implements UserService {
             this.userRepository.save(user);
         }
     }
+
     public void initializeUsersRoles() {
-        if(this.userRoleRepository.count() == 0){
+        if (this.userRoleRepository.count() == 0) {
             UserRole admin = new UserRole();
             admin.setRole(UserRoleEnum.ADMIN);
 
@@ -83,7 +84,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findByUsername(String username) {
-        return this.userRepository.findByUsername(username).orElseThrow(()-> new ObjectNotFoundException("User not found!"));
+        return this.userRepository.findByUsername(username).orElseThrow(() -> new ObjectNotFoundException("User not found!"));
     }
 
     @Override
@@ -107,5 +108,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean isUsernameFree(String username) {
         return this.userRepository.findByUsernameIgnoreCase(username).isEmpty();
+    }
+
+    @Override
+    public void changePassword(String newPassword, String username) {
+        User user = this.userRepository.findByUsername(username)
+                .orElseThrow(() -> new ObjectNotFoundException(String.format("User with name %s not found!", username)));
+        user.setPassword(passwordEncoder.encode(newPassword));
+        this.userRepository.save(user);
     }
 }
