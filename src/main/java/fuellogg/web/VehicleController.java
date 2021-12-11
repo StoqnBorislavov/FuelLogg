@@ -71,26 +71,18 @@ public class VehicleController {
     @PreAuthorize("@vehicleServiceImpl.isOwner(#id, #user.name)")
     @GetMapping("/vehicle/{id}/fueling")
     public String showFueling(@PathVariable Long id, Model model, Principal user) {
-//        if (vehicleService.isOwner(id, user.getName())) {
             List<FuelStatisticViewModel> fuelStatistic = this.statisticsFuelingService.getAllStatisticsByVehicleId(id);
             model.addAttribute("make", this.vehicleService.findVehicleById(id));
             model.addAttribute("fuelings", fuelStatistic);
-//        } else {
-//            throw new AccessDeniedException("Access is denied");
-//        }
         return "vehicle-fueling-history";
     }
 
     @PreAuthorize("@vehicleServiceImpl.isOwner(#id, #user.name)")
     @GetMapping("/vehicle/{id}/expenses")
-    public String showExpenses(@PathVariable Long id, Principal user, Model model) throws NotFoundException {
-//        if (vehicleService.isOwner(id, user.getName())) {
+    public String showExpenses(@PathVariable Long id, Principal user, Model model){
         List<ExpensesStatisticViewModel> expenses = this.statisticsExpensesService.getAllStatisticsByVehicleId(id);
         model.addAttribute("make", this.vehicleService.findVehicleById(id));
         model.addAttribute("expenses", expenses);
-//        } else {
-//            throw new AccessDeniedException("Access is denied");
-//        }
         return"vehicle-expenses-history";
 }
 

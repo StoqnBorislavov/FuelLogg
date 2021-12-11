@@ -24,7 +24,7 @@ public class StatsController {
 
     @GetMapping("/statistics")
     public String statistics(@AuthenticationPrincipal Principal user, Model model){
-        model.addAttribute("stats", this.statsService.getStatistic());
+        model.addAttribute("stat", this.statsService.getStatistic());
         return "stats";
     }
 }

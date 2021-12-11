@@ -12,12 +12,12 @@
         <form class="main-form mx-auto col-md-6 d-flex flex-column justify-content-center">
             <div class="form-group">
                 <h3 class="c text-center  mt-5"
-                    th:text="|Biggest Log time for last 24 hours: ${stats.getBiggestTime()} ms|"></h3>
-                <h3 class="c text-center  mt-5" th:text="|Total requests: ${stats.getTotalRequest()}|"></h3>
-                <h3 class="c text-center  mt-5" th:text="|Total requests on adding fuel option: ${stats.getAddFuelings()}|"></h3>
-                <h3 class="c text-center  mt-5" th:text="|Total requests on adding expenses option: ${stats.getAddExpenses()}|"></h3>
-                <h3 class="c text-center  mt-5" th:text="|Anonymous requests: ${stats.getAnonymousRequest()}|"></h3>
-                <h3 class="c text-center  mt-5" th:text="|Authorized requests: ${stats.getAuthRequest()}|"></h3>
+                    th:text="|Biggest Log time for last 24 hours: ${stat.getBiggestTime()} ms|"></h3>
+                <h3 class="c text-center  mt-5" th:text="|Total requests: ${stat.getTotalRequest()}|"></h3>
+                <h3 class="c text-center  mt-5" th:text="|Total requests on adding fuel option: ${stat.getAddFuelings()}|"></h3>
+                <h3 class="c text-center  mt-5" th:text="|Total requests on adding expenses option: ${stat.getAddExpenses()}|"></h3>
+                <h3 class="c text-center  mt-5" th:text="|Anonymous requests: ${stat.getAnonymousRequest()}|"></h3>
+                <h3 class="c text-center  mt-5" th:text="|Authorized requests: ${stat.getAuthRequest()}|"></h3>
             </div>
         </form>
     </div>
