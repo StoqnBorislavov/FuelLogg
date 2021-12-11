@@ -65,6 +65,7 @@ public class StatsServiceImpl implements StatsService {
     }
 
     @Override
+    @Transactional
     public StatisticView getStatistic() {
         Instant newInst = Instant.now().minusMillis(MILLISECONDS_FROM_24_HOUR);
         AdminStat adminStat = this.adminStatRepository.findTopByCreatedAfterOrderByLogTimeDesc(newInst)
