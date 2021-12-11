@@ -29,7 +29,7 @@ import java.security.Principal;
 import java.util.List;
 
 @Controller
-//@EnableGlobalMethodSecurity(prePostEnabled = true)
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class VehicleController {
 
     private final BrandService brandService;
@@ -47,13 +47,13 @@ public class VehicleController {
 
 
     @GetMapping("/vehicle/add")
-    private String addVehicle(Model model) {
+    public String addVehicle(Model model) {
         model.addAttribute("brandsModels", this.brandService.getAllBrands());
         return "add-vehicle";
     }
 
     @PostMapping("/vehicle/add")
-    private String addVehicleConfirm(@Valid VehicleAddBindingModel vehicleAddBindingModel, BindingResult result,
+    public String addVehicleConfirm(@Valid VehicleAddBindingModel vehicleAddBindingModel, BindingResult result,
                                      RedirectAttributes redirectAttributes,
                                      @AuthenticationPrincipal MyUser user) throws IOException {
         if (result.hasErrors()) {
@@ -68,30 +68,29 @@ public class VehicleController {
         return "redirect:/home";
     }
 
-    //    @PreAuthorize("@vehicleServiceImpl.isOwner(#id, #user.name)")
+    @PreAuthorize("@vehicleServiceImpl.isOwner(#id, #user.name)")
     @GetMapping("/vehicle/{id}/fueling")
     public String showFueling(@PathVariable Long id, Model model, Principal user) {
-        if (vehicleService.isOwner(id, user.getName())) {
+//        if (vehicleService.isOwner(id, user.getName())) {
             List<FuelStatisticViewModel> fuelStatistic = this.statisticsFuelingService.getAllStatisticsByVehicleId(id);
             model.addAttribute("make", this.vehicleService.findVehicleById(id));
             model.addAttribute("fuelings", fuelStatistic);
-        } else {
-            throw new AccessDeniedException("Access is denied");
-        }
+//        } else {
+//            throw new AccessDeniedException("Access is denied");
+//        }
         return "vehicle-fueling-history";
     }
 
-    //    @PreAuthorize("@vehicleServiceImpl.isOwner(#id, #user.name)")
-    //    If I leave the preauthorize annotation spring IoC can't handle my beans for some reason
+    @PreAuthorize("@vehicleServiceImpl.isOwner(#id, #user.name)")
     @GetMapping("/vehicle/{id}/expenses")
     public String showExpenses(@PathVariable Long id, Principal user, Model model) throws NotFoundException {
-        if (vehicleService.isOwner(id, user.getName())) {
+//        if (vehicleService.isOwner(id, user.getName())) {
         List<ExpensesStatisticViewModel> expenses = this.statisticsExpensesService.getAllStatisticsByVehicleId(id);
         model.addAttribute("make", this.vehicleService.findVehicleById(id));
         model.addAttribute("expenses", expenses);
-        } else {
-            throw new AccessDeniedException("Access is denied");
-        }
+//        } else {
+//            throw new AccessDeniedException("Access is denied");
+//        }
         return"vehicle-expenses-history";
 }
 
