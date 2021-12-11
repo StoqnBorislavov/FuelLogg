@@ -1,7 +1,9 @@
 spring:
   datasource:
     driverClassName: org.postgresql.Driver
-    url: ${JDBC_DATABASE_URL:}
+#    driverClassName: com.mysql.cj.jdbc.Driver
+
+    url: ${JDBC_DATABASE_URL:jdbc:mysql://localhost:3306/fuel_logg?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true&serverTimezone=UTC}
     username: ${JDBC_DATABASE_USERNAME:root}
     password: ${JDBC_DATABASE_PASSWORD:}
 #For uploading photos with url!
@@ -23,10 +25,10 @@ spring:
 #    database-platform: org.hibernate.dialect.MySQL8Dialect
 
 #For MySQL 5
-#database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
 
-# For Postgre dialect
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
+## For Postgre dialect
+#    database-platform: org.hibernate.dialect.PostgreSQLDialect
 
     hibernate:
       ddl-auto: update
