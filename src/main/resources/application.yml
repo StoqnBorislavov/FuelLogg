@@ -1,7 +1,7 @@
 spring:
   datasource:
-#    driverClassName: org.postgresql.Driver
-    driverClassName: com.mysql.cj.jdbc.Driver
+    driverClassName: ${POSTRGE_DRIVER:com.mysql.cj.jdbc.Driver}
+#    driverClassName: com.mysql.cj.jdbc.Driver
 
     url: ${JDBC_DATABASE_URL:jdbc:mysql://localhost:3306/fuel_logg?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true&serverTimezone=UT}
     username: ${JDBC_DATABASE_USERNAME:root}
@@ -28,7 +28,7 @@ spring:
 #    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
 #
 ## For Postgre dialect
-#    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
 
     hibernate:
       ddl-auto: update
