@@ -70,7 +70,7 @@ public class StatsServiceImpl implements StatsService {
         Instant newInst = Instant.now().minusMillis(MILLISECONDS_FROM_24_HOUR);
         AdminStat adminStat = this.adminStatRepository.findTopByCreatedAfterOrderByLogTimeDesc(newInst)
                 .orElseThrow(()-> new UnsupportedOperationException("There is no log times"));
-        if(adminStat == null){
+        if(adminStat.getLogTime() == null){
             return new StatisticView(authRequest, anonymousRequest, countFuelings, countExpenses, 0);
         }
         return new StatisticView(authRequest, anonymousRequest, countFuelings, countExpenses, adminStat.getLogTime());
