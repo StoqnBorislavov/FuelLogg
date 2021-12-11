@@ -25,10 +25,10 @@ spring:
 #    database-platform: org.hibernate.dialect.MySQL8Dialect
 
 #For MySQL 5
-    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+#    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
 
 ## For Postgre dialect
-#    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
 
     hibernate:
       ddl-auto: update
