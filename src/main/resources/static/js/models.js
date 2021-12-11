@@ -2,7 +2,7 @@ let brandHtmlElement = document.querySelector('#brandId');
 brandHtmlElement.addEventListener('change', onChangeHandler);
 
 // let baseURL = 'https://fuellogg.herokuapp.com/api/model';
-let baseURL = "https://git.heroku.com/gentle-temple-45146.git/api/model";
+let baseURL = "https://gentle-temple-45146.herokuapp.com/api/model";
 async function onChangeHandler(e){
     let brandName = e.target.value;
     let response = await fetch(`${baseURL}/${brandName}`);
