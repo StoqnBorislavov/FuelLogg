@@ -87,7 +87,7 @@ public class StatisticFueling extends BaseEntity{
         this.route = route;
         return this;
     }
-    @Lob
+//    @Lob
     public String getDescription() {
         return description;
     }

@@ -46,7 +46,7 @@ public class StatisticExpenses extends BaseEntity {
         this.price = price;
         return this;
     }
-    @Lob
+//    @Lob
     public String getDescription() {
         return description;
     }
