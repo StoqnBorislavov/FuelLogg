@@ -1,11 +1,12 @@
 package fuellogg.web;
 
 import fuellogg.model.binding.ChangePasswordBindingModel;
-import fuellogg.model.binding.UserRegisterBindingModel;
 import fuellogg.service.UserService;
 import fuellogg.service.impl.MyUser;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,10 +22,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class UserLoginController {
 
     private final UserService userService;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserLoginController(UserService userService) {
+    public UserLoginController(UserService userService, PasswordEncoder passwordEncoder) {
         this.userService = userService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @ModelAttribute("changePasswordBindingModel")
@@ -57,8 +60,11 @@ public class UserLoginController {
     public String changePassword(ChangePasswordBindingModel changePasswordBindingModel, BindingResult bindingResult,
                                  RedirectAttributes redirectAttributes, @AuthenticationPrincipal MyUser user) {
 
-        if (bindingResult.hasErrors() || !changePasswordBindingModel.getNewPassword()
+        if (this.userService.checkCurrentPassword(user.getUserIdentifier(), changePasswordBindingModel.getConfirmPassword()) || bindingResult.hasErrors() || !changePasswordBindingModel.getNewPassword()
                 .equals(changePasswordBindingModel.getConfirmPassword())) {
+            if(this.userService.checkCurrentPassword(user.getUserIdentifier(), changePasswordBindingModel.getConfirmPassword())){
+                redirectAttributes.addFlashAttribute("currentPasswordsNotMatch", true);
+            }
             redirectAttributes.addFlashAttribute("changePasswordBindingModel", changePasswordBindingModel)
                     .addFlashAttribute("org.springframework.validation.BindingResult.changePasswordBindingModel",
                             bindingResult);
@@ -67,6 +73,7 @@ public class UserLoginController {
             }
             return "redirect:/users/changePassword";
         }
+
 
         this.userService.changePassword(changePasswordBindingModel.getNewPassword(), user.getUserIdentifier());
 

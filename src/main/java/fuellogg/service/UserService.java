@@ -15,4 +15,6 @@ public interface UserService {
     boolean isUsernameFree(String username);
 
     void changePassword(String newPassword, String username);
+
+    boolean checkCurrentPassword(String username, String confirmPassword);
 }

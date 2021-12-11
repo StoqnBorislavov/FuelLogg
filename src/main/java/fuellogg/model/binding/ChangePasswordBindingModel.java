@@ -5,7 +5,7 @@ import javax.validation.constraints.Size;
 
 public class ChangePasswordBindingModel {
 
-
+    private String currentPassword;
     private String newPassword;
     private String confirmPassword;
 
@@ -13,7 +13,18 @@ public class ChangePasswordBindingModel {
     }
 
     @NotNull
-    @Size(min=4, max=20)
+    @Size(min = 4, max = 20)
+    public String getCurrentPassword() {
+        return currentPassword;
+    }
+
+    public ChangePasswordBindingModel setCurrentPassword(String currentPassword) {
+        this.currentPassword = currentPassword;
+        return this;
+    }
+
+    @NotNull
+    @Size(min = 4, max = 20)
     public String getNewPassword() {
         return newPassword;
     }
@@ -21,8 +32,9 @@ public class ChangePasswordBindingModel {
     public void setNewPassword(String newPassword) {
         this.newPassword = newPassword;
     }
+
     @NotNull
-    @Size(min=4, max=20)
+    @Size(min = 4, max = 20)
     public String getConfirmPassword() {
         return confirmPassword;
     }
