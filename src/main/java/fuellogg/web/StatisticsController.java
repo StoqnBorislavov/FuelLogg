@@ -62,11 +62,13 @@ public class StatisticsController {
                                  @Valid AddFuelBindingModel addFuelBindingModel,
                                  BindingResult result,
                                  RedirectAttributes redirectAttributes, Principal user)throws ObjectNotFoundException {
-        if (result.hasErrors()) {
+        if (result.hasErrors()  || addFuelBindingModel.getOdometer() <= this.vehicleService.lastOdometer(id)) {
             redirectAttributes.addFlashAttribute("addFuelBindingModel", addFuelBindingModel);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.addFuelBindingModel", result);
-            Long vehicleId = addFuelBindingModel.getVehicleId();
-            return "redirect:/addFuel/{vehicleId}";
+            if(addFuelBindingModel.getOdometer() <= this.vehicleService.lastOdometer(id)){
+                redirectAttributes.addFlashAttribute("wrongMileage", true);
+            }
+            return "redirect:/statistics/addFuel/{id}";
         }
 
         this.statisticsFuelingService.addFuel(this.modelMapper.map(addFuelBindingModel, AddFuelServiceModel.class));
@@ -89,8 +91,7 @@ public class StatisticsController {
         if (result.hasErrors()) {
             redirectAttributes.addFlashAttribute("addExpensesBindingModel", addExpensesBindingModel);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.addExpensesBindingModel", result);
-            Long vehicleId = addExpensesBindingModel.getVehicleId();
-            return "redirect:/addExpenses/{vehicleId}";
+            return "redirect:/statistics/addExpenses/{id}";
         }
 
         this.statisticsExpensesService.addExpenses(this.modelMapper.map(addExpensesBindingModel, AddExpensesServiceModel.class));

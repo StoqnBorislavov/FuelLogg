@@ -21,6 +21,7 @@
                            th:errorclass="is-invalid" type="number" step="0.01" class="form-control" id="odometer" name="odometer" required
                         placeholder="Current odometer">
                     <small class="invalid-feedback text-danger">Odometer value must be positive number.</small>
+                    <small th:if="${wrongMileage}" class="text-danger">Current odometer should be bigger than last odometer!</small>
                 </div>
                 <div class="form-group">
                     <label for="route" class="text-white font-weight-bold">Route type</label>
