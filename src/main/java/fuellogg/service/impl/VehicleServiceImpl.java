@@ -134,20 +134,20 @@ public class VehicleServiceImpl implements VehicleService {
     }
 
     private BigDecimal calculateAverageConsumption(Vehicle vehicle) {
-        Integer latestFueling = this.statisticsFuelingRepository.findTopByVehicle_IdOrderByCreatedAsc(vehicle.getId()).map(StatisticFueling::getOdometer).orElse(null);
+        StatisticFueling latestFueling = this.statisticsFuelingRepository.findTopByVehicle_IdOrderByCreatedAsc(vehicle.getId()).orElse(null);
         Integer mostRecentFueling = this.statisticsFuelingRepository.findTopByVehicle_IdOrderByCreatedDesc(vehicle.getId()).map(StatisticFueling::getOdometer).orElse(null);
         List<StatisticFueling> statisticFuelings = this.statisticsFuelingRepository.findAllByVehicle_IdOrderByCreatedDesc(vehicle.getId()).orElseThrow(() -> new fuellogg.model.exception.ObjectNotFoundException("Statistics not found!"));
         BigDecimal neededFuel = new BigDecimal(0);
         BigDecimal averageConsumption = new BigDecimal(0);
         if(latestFueling == null && mostRecentFueling == null){
             return new BigDecimal(0);
-        } else if(latestFueling.equals(mostRecentFueling)){
+        } else if(latestFueling.getOdometer().equals(mostRecentFueling)){
             return this.statisticsFuelingRepository.findTopByVehicle_IdOrderByCreatedDesc(vehicle.getId()).orElseThrow(() -> new fuellogg.model.exception.ObjectNotFoundException("Statistics not found!")).getFuelConsumption();
-        } else if(latestFueling != null && mostRecentFueling != null) {
+        } else if(mostRecentFueling != null) {
             for (StatisticFueling statisticFueling : statisticFuelings) {
                 neededFuel = neededFuel.add(statisticFueling.getQuantity());
             }
-            averageConsumption = averageConsumption.add(neededFuel).multiply(BigDecimal.valueOf(100)).divide(BigDecimal.valueOf(mostRecentFueling - latestFueling), RoundingMode.CEILING);
+            averageConsumption = averageConsumption.add(neededFuel).multiply(BigDecimal.valueOf(100)).divide(BigDecimal.valueOf(mostRecentFueling - (latestFueling.getOdometer() - latestFueling.getTrip())), RoundingMode.CEILING);
             return averageConsumption;
         }
         return new BigDecimal(0);
