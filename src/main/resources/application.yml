@@ -1,7 +1,7 @@
 spring:
   datasource:
-#    driverClassName: org.postgresql.Driver
-    driverClassName: com.mysql.cj.jdbc.Driver
+    driverClassName: org.postgresql.Driver
+#    driverClassName: com.mysql.cj.jdbc.Driver
 
     url: ${JDBC_DATABASE_URL:jdbc:mysql://localhost:3306/fuel_logg?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true&serverTimezone=UT}
     username: ${JDBC_DATABASE_USERNAME:root}
@@ -25,13 +25,13 @@ spring:
 #    database-platform: org.hibernate.dialect.MySQL8Dialect
 
 #For MySQL 5
-    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+#    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
 #
-### For Postgre dialect
-#    database-platform: org.hibernate.dialect.PostgreSQLDialect
+## For Postgre dialect
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
 
     hibernate:
-      ddl-auto: update
+      ddl-auto: create-drop
     open-in-view: false
     properties:
       hibernate:
@@ -42,6 +42,7 @@ spring:
 server:
   error:
     path: /error
+    include-stacktrace: always
   port: ${PORT:8080}
 
 

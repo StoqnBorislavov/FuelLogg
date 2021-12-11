@@ -36,8 +36,24 @@ public class BrandServiceImpl implements BrandService {
             mercedes.setName("Mercedes");
             Brand audi = new Brand();
             audi.setName("Audi");
-
-            this.brandRepository.saveAll(List.of(bmw, mercedes, audi));
+            Brand vw = new Brand();
+            vw.setName("Volkswagen");
+            Brand opel = new Brand();
+            opel.setName("Opel");
+            Brand toyota = new Brand();
+            toyota.setName("Toyota");
+            Brand mazda = new Brand();
+            mazda.setName("Mazda");
+            Brand ford = new Brand();
+            ford.setName("Ford");
+            Brand fiat = new Brand();
+            fiat.setName("Fiat");
+            Brand alfaRomeo = new Brand();
+            alfaRomeo.setName("Alfa Romeo");
+            Brand chevrolet = new Brand();
+            chevrolet.setName("Chevrolet");
+            this.brandRepository
+                    .saveAll(List.of(bmw, mercedes, audi, vw, opel, toyota, mazda, ford, fiat, alfaRomeo, chevrolet));
         }
     }
 
