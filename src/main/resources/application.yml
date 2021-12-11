@@ -2,9 +2,9 @@ spring:
   datasource:
     driverClassName: org.postgresql.Driver
 #    driverClassName: com.mysql.cj.jdbc.Driver
-
-    url: ${JDBC_DATABASE_URL:jdbc:mysql://localhost:3306/fuel_logg?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true&serverTimezone=UTC}
-    username: ${JDBC_DATABASE_USERNAME:root}
+#  jdbc:mysql://localhost:3306/fuel_logg?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true&serverTimezone=UTC
+    url: ${JDBC_DATABASE_URL:}
+    username: ${JDBC_DATABASE_USERNAME:}
     password: ${JDBC_DATABASE_PASSWORD:}
 #For uploading photos with url!
   servlet:
