@@ -120,15 +120,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean checkCurrentPassword(String username, String confirmPassword) {
-//        String oldPass = this.userRepository.
-//                findByUsername(username).
-//                orElseThrow(()-> new ObjectNotFoundException("User not found")).getPassword();
-//        String newPassword = passwordEncoder.encode(confirmPassword);
-//        passwordEncoder.matches(
-//                confirmPassword,
-//                this.userRepository.
-//                        findByUsername(username).
-//                        orElseThrow(()-> new ObjectNotFoundException("User not found")).getPassword())
+
         return passwordEncoder.matches(
                 confirmPassword,
                 this.userRepository.
