@@ -10,3 +10,5 @@ Technologies used:
   Cloud: Heroku Cloud Application Platform
 <br>
 Web link to the cloud: <a href="https://softuni.bg/certificates/details/117484/815c8862">FuelLogg</a>
+
+<a href="https://softuni.bg/certificates/details/120353/6edf04c4">CERTIFICATE FOR SPRING ADVANCED</a>
